@@ -5,6 +5,14 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://evaluated-option-economy-banana.trycloudflare.com/api/:path*"
+    },
+    {
+      "source": "/health",
+      "destination": "https://evaluated-option-economy-banana.trycloudflare.com/health"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
