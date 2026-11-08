@@ -3,18 +3,18 @@
     "framework":  "vite",
     "buildCommand":  "npm run build",
     "outputDirectory":  "dist",
-    "rewrites":  [
-                     {
-                         "source":  "/api/:path*",
-                         "destination":  "https://worker-compilation-britney-reported.trycloudflare.com/api/:path*"
-                     },
-                     {
-                         "source":  "/health",
-                         "destination":  "https://worker-compilation-britney-reported.trycloudflare.com/health"
-                     },
-                     {
-                         "source":  "/(.*)",
-                         "destination":  "/index.html"
-                     }
-                 ]
+    "rewrites": [
+        {
+            "source": "/api/:path*",
+            "destination": "https://YOUR-BACKEND-DOMAIN.railway.app/api/:path*"
+        },
+        {
+            "source": "/health",
+            "destination": "https://YOUR-BACKEND-DOMAIN.railway.app/health"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
 }
