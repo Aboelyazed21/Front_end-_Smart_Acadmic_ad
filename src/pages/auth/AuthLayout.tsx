@@ -46,7 +46,7 @@ export function AuthLayout({
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/85 via-[#072a27]/60 to-black/90"
+          className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/60 to-black/90"
           aria-hidden
         />
         <div
@@ -62,7 +62,7 @@ export function AuthLayout({
           <div className="inline-flex items-center rounded-2xl bg-white/95 px-4 py-3 shadow-float ring-1 ring-white/60 backdrop-blur-sm">
             <BuaLogo globeClassName="h-12 w-12" wordmarkClassName="h-[44px] w-auto" />
           </div>
-          <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#d5f5eb]/80">
+          <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/70">
             {t('كلية تكنولوجيا المعلومات وعلوم البيانات')}
           </p>
 
