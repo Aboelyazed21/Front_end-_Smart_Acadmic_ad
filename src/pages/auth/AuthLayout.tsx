@@ -52,6 +52,13 @@ export function AuthLayout({
 }) {
   const { t } = useTranslation();
   const { resolvedTheme, cycleTheme } = useTheme();
+  useEffect(() => {
+    const prev = document.body.style.background;
+    document.body.style.background = 'transparent';
+    return () => {
+      document.body.style.background = prev;
+    };
+  }, []);
   return (
     <div className="grid min-h-screen bg-transparent capitalize [&_input]:normal-case [&_textarea]:normal-case [&_[dir='ltr']]:normal-case lg:grid-cols-[1.08fr_1fr]">
       <section className="relative hidden overflow-hidden text-white lg:flex lg:flex-col lg:justify-between">

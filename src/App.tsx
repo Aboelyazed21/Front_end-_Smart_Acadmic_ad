@@ -3,6 +3,7 @@ import { GuestOnly, RequireAuth, RequireRole } from './auth/guards';
 import { useAuth } from './auth/AuthProvider';
 import { HOME_BY_ROLE } from './lib/constants';
 import { AppLayout } from './components/layout/AppLayout';
+import { InstallPrompt } from './components/layout/InstallPrompt';
 
 import { LoginPage } from './pages/auth/LoginPage';
 import { ForgotPasswordPage } from './pages/auth/ForgotPasswordPage';
@@ -69,7 +70,9 @@ function LayoutRoute() {
 
 export default function App() {
   return (
-    <Routes>
+    <>
+      <InstallPrompt />
+      <Routes>
       <Route element={<GuestOnly />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
@@ -133,5 +136,6 @@ export default function App() {
         </Route>
       </Route>
     </Routes>
+    </>
   );
 }
