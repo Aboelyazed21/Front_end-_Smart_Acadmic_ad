@@ -115,10 +115,6 @@ export function AuthLayout({
             </div>
             <div className="p-6 sm:p-8">
               <div className="mb-6">
-                <div className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-l from-brand-600 to-brand-700 px-3.5 py-1.5 text-[11px] font-bold text-white shadow-sm shadow-brand-600/25">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white/90" aria-hidden />
-                  {t('منصة الإرشاد الأكاديمي')}
-                </div>
                 <h2 className="bg-gradient-to-l from-brand-800 to-ink-950 bg-clip-text font-display text-2xl font-extrabold text-transparent dark:from-brand-300 dark:to-ink-950">
                   {title}
                 </h2>
