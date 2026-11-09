@@ -1,10 +1,25 @@
-import type { ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { BookOpenCheck, GraduationCap, ShieldCheck } from 'lucide-react';
+import { BookOpenCheck, GraduationCap, Moon, ShieldCheck, Sun } from 'lucide-react';
 import { BuaLogo } from '../../components/brand/BuaLogo';
 import { useTheme } from '../../theme/ThemeProvider';
 import buaCampus from '../../assets/bua-campus.jpg';
+
+function TypewriterText({ text, className }: { text: string; className?: string }) {
+  const [shown, setShown] = useState('');
+  useEffect(() => {
+    setShown('');
+    let i = 0;
+    const id = window.setInterval(() => {
+      i += 1;
+      setShown(text.slice(0, i));
+      if (i >= text.length) window.clearInterval(id);
+    }, 28);
+    return () => window.clearInterval(id);
+  }, [text]);
+  return <span className={className}>{shown}<span className="ms-0.5 inline-block w-[2px] animate-pulse rounded-sm bg-brand-400 align-middle" style={{ height: '0.9em' }} aria-hidden /></span>;
+}
 
 const FEATURES = [
   {
@@ -36,9 +51,9 @@ export function AuthLayout({
   footer?: ReactNode;
 }) {
   const { t } = useTranslation();
-  const { resolvedTheme } = useTheme();
+  const { resolvedTheme, cycleTheme } = useTheme();
   return (
-    <div className="grid min-h-screen bg-transparent lg:grid-cols-[1.08fr_1fr]">
+    <div className="grid min-h-screen bg-transparent capitalize [&_input]:normal-case [&_textarea]:normal-case [&_[dir='ltr']]:normal-case lg:grid-cols-[1.08fr_1fr]">
       <section className="relative hidden overflow-hidden text-white lg:flex lg:flex-col lg:justify-between">
         <img
           src={buaCampus}
@@ -100,6 +115,15 @@ export function AuthLayout({
       </section>
 
       <section className="relative flex items-center justify-center overflow-hidden bg-transparent px-4 py-10 sm:px-8">
+        <button
+          type="button"
+          onClick={cycleTheme}
+          className="absolute end-4 top-4 inline-flex items-center gap-2 rounded-xl border border-ink-200 bg-surface/70 px-3 py-2 text-xs font-semibold text-ink-700 shadow-sm backdrop-blur hover:bg-surface"
+          aria-label={t('Toggle dark mode')}
+        >
+          {resolvedTheme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          {resolvedTheme === 'dark' ? t('Light') : t('Dark')}
+        </button>
         <div className="relative w-full max-w-md">
           <div className="mb-7 flex flex-col items-start gap-2 lg:hidden">
             <BuaLogo variant={resolvedTheme === 'dark' ? 'white' : 'navy'} globeClassName="h-11 w-11" wordmarkClassName="h-[40px] w-auto" />
@@ -112,9 +136,9 @@ export function AuthLayout({
             <div className="p-6 sm:p-8">
               <div className="mb-6">
                 <h2 className="bg-gradient-to-l from-brand-800 to-ink-950 bg-clip-text font-display text-2xl font-extrabold text-transparent dark:from-brand-300 dark:to-ink-950">
-                  {title}
+                  <TypewriterText text={title} />
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-ink-500">{subtitle}</p>
+                <p className="mt-2 text-sm leading-6 text-ink-500"><TypewriterText text={subtitle} /></p>
               </div>
               {children}
             </div>
