@@ -38,7 +38,7 @@ export function AuthLayout({
   const { t } = useTranslation();
   const { resolvedTheme } = useTheme();
   return (
-    <div className="grid min-h-screen bg-[#0B0B0B] lg:grid-cols-[1.08fr_1fr]">
+    <div className="grid min-h-screen bg-[#080808] lg:grid-cols-[1.08fr_1fr]">
       <section className="relative hidden overflow-hidden text-white lg:flex lg:flex-col lg:justify-between">
         <img
           src={buaCampus}
@@ -99,7 +99,7 @@ export function AuthLayout({
         </p>
       </section>
 
-      <section className="relative flex items-center justify-center overflow-hidden bg-[#0B0B0B] px-4 py-10 sm:px-8">
+      <section className="relative flex items-center justify-center overflow-hidden bg-[#080808] px-4 py-10 sm:px-8">
         <div className="relative w-full max-w-md">
           <div className="mb-7 flex flex-col items-start gap-2 lg:hidden">
             <BuaLogo variant={resolvedTheme === 'dark' ? 'white' : 'navy'} globeClassName="h-11 w-11" wordmarkClassName="h-[40px] w-auto" />
