@@ -109,16 +109,20 @@ export function AuthLayout({
       </section>
 
       <section className="relative flex items-center justify-center overflow-hidden bg-transparent px-4 py-10 sm:px-8">
+        <div className="absolute inset-0 lg:hidden" aria-hidden>
+          <img src={buaCampus} alt="" className="h-full w-full object-cover object-center" />
+          <div className="absolute inset-0 bg-black/65" />
+        </div>
         <button
           type="button"
           onClick={cycleTheme}
-          className="absolute end-4 top-4 inline-flex items-center gap-2 rounded-xl border border-ink-200 bg-surface/70 px-3 py-2 text-xs font-semibold text-ink-700 shadow-sm backdrop-blur hover:bg-surface"
+          className="absolute end-4 top-4 z-10 inline-flex items-center gap-2 rounded-xl border border-ink-200 bg-surface/70 px-3 py-2 text-xs font-semibold text-ink-700 shadow-sm backdrop-blur hover:bg-surface"
           aria-label={t('Toggle dark mode')}
         >
           {resolvedTheme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           <TypewriterText text={resolvedTheme === 'dark' ? t('Light') : t('Dark')} speed={40} active={firstVisit} />
         </button>
-        <div className="relative w-full max-w-md">
+        <div className="relative z-10 w-full max-w-md">
           <div className="mb-7 flex flex-col items-start gap-2 lg:hidden">
             <BuaLogo variant={resolvedTheme === 'dark' ? 'white' : 'navy'} globeClassName="h-11 w-11" wordmarkClassName="h-[40px] w-auto" />
             <p className="text-[11px] font-semibold text-ink-500">
@@ -126,7 +130,7 @@ export function AuthLayout({
             </p>
           </div>
 
-          <div className="relative overflow-hidden rounded-3xl border border-gold-500/60 bg-surface/10 shadow-float ring-1 ring-gold-400/25 backdrop-blur-xl dark:bg-surface/15">
+          <div className="relative overflow-hidden rounded-3xl border border-gold-500/60 bg-surface/5 shadow-float ring-1 ring-gold-400/25 backdrop-blur-xl dark:bg-surface/10">
             <div className="p-6 sm:p-8">
               <div className="mb-6">
                 <h2 className="bg-gradient-to-l from-brand-800 to-ink-950 bg-clip-text font-display text-2xl font-extrabold text-transparent dark:from-brand-300 dark:to-ink-950">
