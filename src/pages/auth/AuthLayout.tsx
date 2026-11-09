@@ -109,10 +109,6 @@ export function AuthLayout({
           </div>
 
           <div className="relative overflow-hidden rounded-3xl border border-ink-100 bg-surface shadow-float ring-1 ring-black/[0.04] dark:ring-white/5">
-            <div className="relative h-1.5" aria-hidden>
-              <div className="absolute inset-0 bg-gradient-to-l from-brand-800 via-brand-500 to-brand-300" />
-              <div className="aidm-sheen absolute inset-y-0 w-2/3 bg-gradient-to-r from-transparent via-white/60 to-transparent" />
-            </div>
             <div className="p-6 sm:p-8">
               <div className="mb-6">
                 <h2 className="bg-gradient-to-l from-brand-800 to-ink-950 bg-clip-text font-display text-2xl font-extrabold text-transparent dark:from-brand-300 dark:to-ink-950">
