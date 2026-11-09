@@ -9,6 +9,7 @@ import { HOME_BY_ROLE } from '../../lib/constants';
 import { Alert } from '../../components/ui/Feedback';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
+import { TypewriterText, useFirstVisitTyping } from '../../components/ui/TypewriterText';
 import { AuthLayout } from './AuthLayout';
 
 export function LoginPage() {
@@ -16,6 +17,7 @@ export function LoginPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+  const firstVisit = useFirstVisitTyping();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -39,9 +41,9 @@ export function LoginPage() {
       subtitle={t('استخدم البريد الجامعي وكلمة المرور للوصول إلى لوحة الإرشاد الأكاديمي.')}
       footer={
         <span>
-          {t('لا تملك حسابًا؟ تُنشأ الحسابات من قِبل إدارة الكلية.')}{' '}
+          <TypewriterText text={t('لا تملك حسابًا؟ تُنشأ الحسابات من قِبل إدارة الكلية.')} speed={18} active={firstVisit} />{' '}
           <Link to="/forgot-password" className="font-bold text-brand-700 hover:text-brand-900">
-            {t('نسيت كلمة المرور؟')}
+            <TypewriterText text={t('نسيت كلمة المرور؟')} speed={24} active={firstVisit} />
           </Link>
         </span>
       }
@@ -50,7 +52,7 @@ export function LoginPage() {
         {mutation.isError && <Alert tone="danger">{errorMessage(mutation.error)}</Alert>}
 
         <Input
-          label={t('البريد الإلكتروني')}
+          label={<TypewriterText text={t('البريد الإلكتروني')} speed={28} active={firstVisit} />}
           type="email"
           inputMode="email"
           autoComplete="username"
@@ -64,7 +66,7 @@ export function LoginPage() {
 
         <div className="relative">
           <Input
-            label={t('كلمة المرور')}
+            label={<TypewriterText text={t('كلمة المرور')} speed={28} active={firstVisit} />}
             type={showPassword ? 'text' : 'password'}
             autoComplete="current-password"
             dir="ltr"
@@ -85,7 +87,7 @@ export function LoginPage() {
         </div>
 
         <Button type="submit" className="w-full" size="lg" loading={mutation.isPending}>
-          {t('دخول إلى المنصة')}
+          <TypewriterText text={t('دخول إلى المنصة')} speed={30} active={firstVisit && !mutation.isPending} />
         </Button>
       </form>
     </AuthLayout>

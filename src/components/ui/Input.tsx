@@ -1,4 +1,4 @@
-import { forwardRef, useId, type InputHTMLAttributes, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react';
+import { forwardRef, useId, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react';
 import { cn } from '../../lib/format';
 
 const CONTROL =
@@ -13,7 +13,7 @@ export function Field({
   children,
   className,
 }: {
-  label?: string;
+  label?: ReactNode;
   htmlFor?: string;
   hint?: string;
   error?: string;
@@ -37,7 +37,7 @@ export function Field({
 }
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
+  label?: ReactNode;
   hint?: string;
   error?: string;
   leading?: React.ReactNode;

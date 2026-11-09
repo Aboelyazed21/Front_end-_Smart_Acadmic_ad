@@ -5,21 +5,7 @@ import { BookOpenCheck, GraduationCap, Moon, ShieldCheck, Sun } from 'lucide-rea
 import { BuaLogo } from '../../components/brand/BuaLogo';
 import { useTheme } from '../../theme/ThemeProvider';
 import buaCampus from '../../assets/bua-campus.jpg';
-
-function TypewriterText({ text, className }: { text: string; className?: string }) {
-  const [shown, setShown] = useState('');
-  useEffect(() => {
-    setShown('');
-    let i = 0;
-    const id = window.setInterval(() => {
-      i += 1;
-      setShown(text.slice(0, i));
-      if (i >= text.length) window.clearInterval(id);
-    }, 28);
-    return () => window.clearInterval(id);
-  }, [text]);
-  return <span className={className}>{shown}<span className="ms-0.5 inline-block w-[2px] animate-pulse rounded-sm bg-brand-400 align-middle" style={{ height: '0.9em' }} aria-hidden /></span>;
-}
+import { TypewriterText, useFirstVisitTyping } from '../../components/ui/TypewriterText';
 
 const FEATURES = [
   {
@@ -52,6 +38,7 @@ export function AuthLayout({
 }) {
   const { t } = useTranslation();
   const { resolvedTheme, cycleTheme } = useTheme();
+  const firstVisit = useFirstVisitTyping();
   useEffect(() => {
     const prev = document.body.style.background;
     document.body.style.background = 'transparent';
@@ -129,13 +116,13 @@ export function AuthLayout({
           aria-label={t('Toggle dark mode')}
         >
           {resolvedTheme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          {resolvedTheme === 'dark' ? t('Light') : t('Dark')}
+          <TypewriterText text={resolvedTheme === 'dark' ? t('Light') : t('Dark')} speed={40} active={firstVisit} />
         </button>
         <div className="relative w-full max-w-md">
           <div className="mb-7 flex flex-col items-start gap-2 lg:hidden">
             <BuaLogo variant={resolvedTheme === 'dark' ? 'white' : 'navy'} globeClassName="h-11 w-11" wordmarkClassName="h-[40px] w-auto" />
             <p className="text-[11px] font-semibold text-ink-500">
-              {t('المرشد الأكاديمي الذكي · جامعة بدر بأسيوط')}
+              <TypewriterText text={t('المرشد الأكاديمي الذكي · جامعة بدر بأسيوط')} speed={18} active={firstVisit} />
             </p>
           </div>
 
@@ -143,9 +130,9 @@ export function AuthLayout({
             <div className="p-6 sm:p-8">
               <div className="mb-6">
                 <h2 className="bg-gradient-to-l from-brand-800 to-ink-950 bg-clip-text font-display text-2xl font-extrabold text-transparent dark:from-brand-300 dark:to-ink-950">
-                  <TypewriterText text={title} />
+                  <TypewriterText text={title} active={firstVisit} />
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-ink-500"><TypewriterText text={subtitle} /></p>
+                <p className="mt-2 text-sm leading-6 text-ink-500"><TypewriterText text={subtitle} speed={14} active={firstVisit} /></p>
               </div>
               {children}
             </div>
@@ -154,11 +141,11 @@ export function AuthLayout({
           {footer && <div className="mt-5 text-center text-sm text-ink-500">{footer}</div>}
           <p className="mt-6 text-center text-[11px] leading-5 text-ink-400">
             <Link to="/login" className="hover:text-ink-600">
-              {t('الوصول محمي · الجلسات تُدوّر تلقائيًا · كل العمليات الحساسة تُسجّل في سجل التدقيق')}
+              <TypewriterText text={t('الوصول محمي · الجلسات تُدوّر تلقائيًا · كل العمليات الحساسة تُسجّل في سجل التدقيق')} speed={12} active={firstVisit} />
             </Link>
           </p>
           <p className="mt-3 text-center text-[11px] leading-5 text-ink-400">
-            © {new Date().getFullYear()} Aboelyazed Hatem Aboelyazed · {t('جميع الحقوق محفوظة')}
+            <TypewriterText text={`© ${new Date().getFullYear()} Aboelyazed Hatem Aboelyazed · ${t('جميع الحقوق محفوظة')}`} speed={16} active={firstVisit} />
           </p>
         </div>
       </section>
