@@ -38,7 +38,7 @@ export function AuthLayout({
   const { t } = useTranslation();
   const { resolvedTheme } = useTheme();
   return (
-    <div className="grid min-h-screen bg-canvas lg:grid-cols-[1.08fr_1fr]">
+    <div className="grid min-h-screen lg:grid-cols-[1.08fr_1fr]">
       <section className="relative hidden overflow-hidden text-white lg:flex lg:flex-col lg:justify-between">
         <img
           src={buaCampus}
@@ -108,11 +108,6 @@ export function AuthLayout({
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,rgba(22,71,65,0.07)_1px,transparent_1.5px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_78%)] dark:bg-[radial-gradient(circle,rgba(94,234,212,0.05)_1px,transparent_1.5px)]"
           aria-hidden
         />
-        <div
-          className="pointer-events-none absolute -bottom-24 -start-24 h-72 w-72 rounded-full bg-gold-200/20 blur-3xl"
-          aria-hidden
-        />
-
         <div className="relative w-full max-w-md">
           <div className="mb-7 flex flex-col items-start gap-2 lg:hidden">
             <BuaLogo variant={resolvedTheme === 'dark' ? 'white' : 'navy'} globeClassName="h-11 w-11" wordmarkClassName="h-[40px] w-auto" />
