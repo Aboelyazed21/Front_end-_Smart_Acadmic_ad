@@ -190,6 +190,16 @@
     @apply bg-canvas font-sans text-ink-900 antialiased;
   }
 
+  /* Soft brand glow behind the page in dark mode so the canvas does not read
+     as a flat black sheet. Fixed so it does not scroll with the content. */
+  [data-theme='dark'] body {
+    background-image:
+      radial-gradient(70rem 34rem at 8% -12%, rgb(20 85 77 / 0.4), transparent 62%),
+      radial-gradient(55rem 30rem at 104% 0%, rgb(58 48 19 / 0.3), transparent 58%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+
   /* Subtle, theme-aware colour transitions (skipped for reduced motion). */
   html.theme-anim,
   html.theme-anim *,

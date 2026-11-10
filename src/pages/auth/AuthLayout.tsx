@@ -116,8 +116,13 @@ export function AuthLayout({
         <div
           role="group"
           aria-label={t('مظهر الواجهة')}
-          className="absolute end-4 top-4 z-10 inline-flex items-center rounded-xl border border-ink-200 bg-surface/80 p-0.5 shadow-sm backdrop-blur"
+          className="absolute end-4 top-4 z-10 inline-flex h-9 items-center rounded-xl border border-ink-200/80 bg-ink-50/70 p-1 shadow-inner backdrop-blur"
         >
+          <span
+            aria-hidden
+            className="pointer-events-none absolute bottom-1 top-1 w-8 rounded-lg bg-gradient-to-b from-primary to-brand-600 shadow-sm ring-1 ring-black/5 transition-[inset-inline-start] duration-200 ease-out"
+            style={{ insetInlineStart: resolvedTheme === 'light' ? '0.25rem' : '2.25rem' }}
+          />
           {(
             [
               { key: 'light', icon: Sun, title: t('الوضع الفاتح') },
@@ -135,10 +140,8 @@ export function AuthLayout({
                 aria-label={option.title}
                 title={option.title}
                 className={[
-                  'inline-flex h-8 w-8 items-center justify-center rounded-lg transition',
-                  active
-                    ? 'bg-primary text-on-primary shadow-sm'
-                    : 'text-ink-500 hover:bg-ink-100 hover:text-ink-900',
+                  'relative z-10 inline-flex h-7 w-8 items-center justify-center rounded-lg transition-colors',
+                  active ? 'text-on-primary' : 'text-ink-500 hover:text-ink-900',
                 ].join(' ')}
               >
                 <Icon className="h-4 w-4" strokeWidth={1.9} aria-hidden />
