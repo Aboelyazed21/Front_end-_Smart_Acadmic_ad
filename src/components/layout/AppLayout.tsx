@@ -2,34 +2,37 @@ import { useMemo, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
+  Activity,
+  BadgeCheck,
   Bell,
-  BookOpen,
+  BellRing,
+  BotMessageSquare,
   Building2,
   CalendarClock,
+  Calculator,
   ChartColumn,
   ClipboardCheck,
+  ClipboardList,
+  Contact,
+  FileUp,
+  FileWarning,
+  GitCompareArrows,
   GraduationCap,
-  Gauge,
   Inbox,
   Languages,
-  LayoutDashboard,
-  ListChecks,
+  Library,
   LogOut,
   Menu,
-  MessagesSquare,
   Monitor,
   Moon,
+  PanelsTopLeft,
   Scale,
   ScrollText,
   Settings,
-  ShieldCheck,
-  Shuffle,
+  Siren,
   Sun,
-  TriangleAlert,
-  Upload,
   UserCog,
-  UserRound,
-  Users,
+  UsersRound,
   X,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -47,18 +50,19 @@ import { BuaLogo } from '../brand/BuaLogo';
 import { FloatingAssistant } from '../assistant/FloatingAssistant';
 
 const ICONS: Record<string, LucideIcon> = {
-  LayoutDashboard,
-  ShieldCheck,
-  ListChecks,
-  Gauge,
-  TriangleAlert,
+  PanelsTopLeft,
+  BadgeCheck,
+  ClipboardList,
+  Activity,
+  Siren,
   GraduationCap,
-  Shuffle,
-  BookOpen,
-  UserRound,
-  MessagesSquare,
-  Bell,
-  Users,
+  Calculator,
+  GitCompareArrows,
+  Library,
+  Contact,
+  BotMessageSquare,
+  BellRing,
+  UsersRound,
   ClipboardCheck,
   CalendarClock,
   Inbox,
@@ -67,7 +71,8 @@ const ICONS: Record<string, LucideIcon> = {
   Scale,
   ScrollText,
   ChartColumn,
-  Upload,
+  FileUp,
+  FileWarning,
 };
 
 function Logo() {
@@ -137,9 +142,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       )}
 
       <aside
+        data-open={mobileOpen}
         className={cn(
-          'fixed inset-y-0 start-0 z-40 flex w-72 flex-col bg-gradient-to-b from-[#072a27] via-[#164741] to-[#0a1512] transition-transform duration-200 lg:translate-x-0',
-          mobileOpen ? 'translate-x-0' : 'translate-x-full',
+          'app-sidebar fixed inset-y-0 start-0 z-40 flex w-72 flex-col bg-gradient-to-b from-[#072a27] via-[#164741] to-[#0a1512] lg:shadow-none',
+          mobileOpen ? 'shadow-2xl' : '',
         )}
       >
         <div className="flex items-center justify-between gap-2 px-4 py-5">
@@ -166,7 +172,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
         <nav className="mt-4 flex-1 space-y-0.5 overflow-y-auto px-2 pb-4" aria-label={t('القائمة الرئيسية')}>
           {navItems.map((item) => {
-            const Icon = ICONS[item.icon] ?? LayoutDashboard;
+            const Icon = ICONS[item.icon] ?? PanelsTopLeft;
             return (
               <NavLink
                 key={item.to}
@@ -184,7 +190,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               >
                 {({ isActive }) => (
                   <>
-                    <Icon className={cn('h-[18px] w-[18px] shrink-0', isActive ? 'text-gold-300' : 'text-[#aeead9]/70')} />
+                    <Icon
+                      strokeWidth={1.75}
+                      className={cn(
+                        'h-[18px] w-[18px] shrink-0',
+                        isActive ? 'text-gold-300' : 'text-[#aeead9]/80',
+                      )}
+                    />
                     <span className="flex-1">{t(item.label)}</span>
                     {item.to === '/student/notifications' && unread > 0 && (
                       <span className="rounded-full bg-gold-400 px-1.5 py-0.5 text-[10px] font-black text-[#111b25]">

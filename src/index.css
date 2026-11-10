@@ -263,6 +263,43 @@
 }
 
 /* --------------------------------------------------------------------------
+   App sidebar / mobile drawer
+   The panel is anchored with `inset-inline-start`, so it sits on the correct
+   side in both LTR and RTL. When closed it must slide *outward* (away from the
+   viewport); the previous `translate-x-full` moved it inward in LTR and left
+   the drawer parked on top of the page.
+   -------------------------------------------------------------------------- */
+.app-sidebar {
+  transition: transform 200ms ease;
+}
+
+@media (max-width: 1023.98px) {
+  .app-sidebar[data-open='false'] {
+    transform: translateX(-100%);
+  }
+
+  html[dir='rtl'] .app-sidebar[data-open='false'] {
+    transform: translateX(100%);
+  }
+
+  .app-sidebar[data-open='true'] {
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-sidebar {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-sidebar {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
    Global floating assistant (waving robot + pulse rings)
    -------------------------------------------------------------------------- */
 @keyframes aidm-wave {
