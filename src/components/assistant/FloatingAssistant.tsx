@@ -9,7 +9,7 @@ import { CHAT_SUGGESTIONS } from '../chat/suggestions';
 import { useChat } from '../chat/useChat';
 
 /**
- * Teal-green waving robot mark used by the global floating assistant.
+ * BUA-blue waving robot mark used by the global floating assistant.
  * The arm is a separate group so `.aidm-wave` can rotate it around the
  * shoulder point (see the keyframes in index.css).
  */
@@ -18,26 +18,26 @@ function RobotMark({ className, gradientId = 'aidm-robot' }: { className?: strin
     <svg viewBox="0 0 64 64" className={className} aria-hidden focusable="false">
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#99f6e4" />
-          <stop offset="45%" stopColor="#2dd4bf" />
-          <stop offset="100%" stopColor="#059669" />
+          <stop offset="0%" stopColor="#bfdbfe" />
+          <stop offset="45%" stopColor="#60a5fa" />
+          <stop offset="100%" stopColor="#1d4ed8" />
         </linearGradient>
       </defs>
       {/* antenna */}
-      <path d="M32 14V8" stroke="#5eead4" strokeWidth="3" strokeLinecap="round" />
-      <circle cx="32" cy="6" r="3" fill="#f0fdfa" />
+      <path d="M32 14V8" stroke="#93c5fd" strokeWidth="3" strokeLinecap="round" />
+      <circle cx="32" cy="6" r="3" fill="#eff6ff" />
       {/* ears */}
-      <rect x="7" y="24" width="6" height="12" rx="3" fill="#0f766e" />
-      <rect x="51" y="24" width="6" height="12" rx="3" fill="#0f766e" />
+      <rect x="7" y="24" width="6" height="12" rx="3" fill="#1e40af" />
+      <rect x="51" y="24" width="6" height="12" rx="3" fill="#1e40af" />
       {/* head */}
       <rect x="12" y="14" width="40" height="34" rx="14" fill={`url(#${gradientId})`} />
       {/* face */}
-      <rect x="18" y="21" width="28" height="18" rx="9" fill="#042f2e" />
+      <rect x="18" y="21" width="28" height="18" rx="9" fill="#0b2545" />
       {/* eyes */}
-      <circle cx="26" cy="29.5" r="3.4" fill="#f0fdfa" />
-      <circle cx="38" cy="29.5" r="3.4" fill="#f0fdfa" />
+      <circle cx="26" cy="29.5" r="3.4" fill="#eff6ff" />
+      <circle cx="38" cy="29.5" r="3.4" fill="#eff6ff" />
       {/* smile */}
-      <path d="M28 34.5c1.5 2 6.5 2 8 0" fill="none" stroke="#5eead4" strokeWidth="2" strokeLinecap="round" />
+      <path d="M28 34.5c1.5 2 6.5 2 8 0" fill="none" stroke="#93c5fd" strokeWidth="2" strokeLinecap="round" />
       {/* waving arm — rotated by .aidm-wave around the shoulder (48,42) */}
       <g className="aidm-wave">
         <path
@@ -47,7 +47,7 @@ function RobotMark({ className, gradientId = 'aidm-robot' }: { className?: strin
           strokeWidth="5.5"
           strokeLinecap="round"
         />
-        <circle cx="56" cy="28" r="4.2" fill="#5eead4" />
+        <circle cx="56" cy="28" r="4.2" fill="#93c5fd" />
       </g>
     </svg>
   );
@@ -116,13 +116,13 @@ export function FloatingAssistant() {
           className="aidm-pop flex h-[min(36rem,calc(100vh-8.5rem))] w-[min(24rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border border-ink-200 bg-surface shadow-float"
         >
           {/* Header */}
-          <header className="flex items-center gap-2.5 bg-gradient-to-r from-[#072a27] via-[#164741] to-[#0f3f39] px-4 py-3 text-white">
+          <header className="flex items-center gap-2.5 bg-gradient-to-r from-[#0a2545] via-[#123a63] to-[#0d2f52] px-4 py-3 text-white">
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/10">
               <RobotMark className="h-7 w-7" gradientId="aidm-robot-header" />
             </span>
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-bold">{t('مساعد اللائحة')}</p>
-              <p className="truncate text-[11px] text-[#aeead9]/80">
+              <p className="truncate text-[11px] text-[#a8c6e8]/80">
                 {t('مستخرج من BUA-AIDM.pdf · لا يخترع إجابات')}
               </p>
             </div>
@@ -132,7 +132,7 @@ export function FloatingAssistant() {
               disabled={chat.createSession.isPending}
               aria-label={t('محادثة جديدة')}
               title={t('محادثة جديدة')}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[#d5f5eb] transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 disabled:opacity-50"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[#dbe9f9] transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 disabled:opacity-50"
             >
               <MessageSquarePlus className="h-4 w-4" />
             </button>
@@ -141,7 +141,7 @@ export function FloatingAssistant() {
               onClick={() => setOpen(false)}
               aria-label={t('إغلاق المساعد')}
               title={t('إغلاق المساعد')}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[#d5f5eb] transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[#dbe9f9] transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
               <X className="h-5 w-5" />
             </button>
@@ -270,7 +270,7 @@ export function FloatingAssistant() {
           aria-controls="aidm-assistant-panel"
           aria-label={open ? t('إغلاق المساعد') : t('فتح المساعد الذكي')}
           title={open ? t('إغلاق المساعد') : t('فتح المساعد الذكي')}
-          className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-brand-300 via-brand-500 to-emerald-600 text-white shadow-lg shadow-brand-600/30 ring-1 ring-white/40 transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-400/40 active:scale-95 motion-reduce:hover:scale-100 motion-reduce:transition-none"
+          className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-brand-300 via-brand-500 to-brand-700 text-white shadow-lg shadow-brand-600/30 ring-1 ring-white/40 transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-400/40 active:scale-95 motion-reduce:hover:scale-100 motion-reduce:transition-none"
         >
           <RobotMark className="h-9 w-9 drop-shadow-sm" />
         </button>

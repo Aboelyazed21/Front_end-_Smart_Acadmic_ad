@@ -64,7 +64,7 @@ export default {
           900: v('ink-900'),
           950: v('ink-950'),
         },
-        // Brand teal: tints, borders, labels and the primary action.
+        // Brand blue (BUA LMS): tints, borders, labels and the primary action.
         brand: {
           50: v('brand-50'),
           100: v('brand-100'),

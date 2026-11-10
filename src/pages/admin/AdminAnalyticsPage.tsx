@@ -30,7 +30,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Ca
 import { PageHeader, ProgressBar, StatCard } from '../../components/ui/Page';
 import { Table, TableWrap, TBody, Td, Th, THead, Tr } from '../../components/ui/Table';
 
-const COLORS = ['#0f6b52', '#c9a227', '#0284c7', '#dc2626', '#7c3aed', '#64748b', '#059669', '#d97706'];
+const COLORS = ['#003a75', '#c9a227', '#0284c7', '#dc2626', '#7c3aed', '#64748b', '#059669', '#d97706'];
 
 function num(value: string | number | null | undefined): number {
   return Number(value ?? 0);
@@ -293,7 +293,7 @@ export function AdminAnalyticsPage() {
                     <YAxis tick={{ fontSize: 11 }} />
                     <Tooltip formatter={(value) => formatInt(Number(value))} />
                     <Legend />
-                    <Bar dataKey="students" name={t('طلاب')} fill="#0f6b52" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="students" name={t('طلاب')} fill="#003a75" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="failures" name={t('رسوب')} fill="#dc2626" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>

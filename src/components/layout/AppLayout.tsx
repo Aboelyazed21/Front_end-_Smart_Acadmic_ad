@@ -84,7 +84,7 @@ function Logo() {
         wordmarkClassName="h-[19px] w-auto"
         className="max-w-[190px]"
       />
-      <p className="mt-1.5 truncate text-[11px] font-semibold text-[#d5f5eb]/80">
+      <p className="mt-1.5 truncate text-[11px] font-semibold text-[#dbe9f9]/80">
         {t('المرشد الأكاديمي الذكي · AIDM')}
       </p>
     </div>
@@ -143,7 +143,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       <aside
         data-open={mobileOpen}
         className={cn(
-          'app-sidebar fixed inset-y-0 start-0 z-40 flex w-72 flex-col bg-gradient-to-b from-[#072a27] via-[#164741] to-[#0a1512] lg:shadow-none',
+          'app-sidebar fixed inset-y-0 start-0 z-40 flex w-72 flex-col bg-gradient-to-b from-[#0a2545] via-[#123a63] to-[#071a2e] lg:shadow-none',
           mobileOpen ? 'shadow-2xl' : '',
         )}
       >
@@ -151,7 +151,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <Logo />
           <IconButton
             label={t('إغلاق القائمة')}
-            className="text-[#d5f5eb] hover:bg-white/10 lg:hidden"
+            className="text-[#dbe9f9] hover:bg-white/10 lg:hidden"
             onClick={closeMobile}
           >
             <X className="h-5 w-5" />
@@ -159,9 +159,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
 
         <div className="mx-4 rounded-xl border border-white/10 bg-white/5 p-3">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[#aeead9]/70">{t('الحساب الحالي')}</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#a8c6e8]/70">{t('الحساب الحالي')}</p>
           <p className="mt-1 truncate text-sm font-bold text-white">{user?.fullName}</p>
-          <p className="truncate text-[11px] text-[#d5f5eb]/70">{subtitle}</p>
+          <p className="truncate text-[11px] text-[#dbe9f9]/70">{subtitle}</p>
           <div className="mt-2 flex flex-wrap gap-1">
             <span className="rounded-full bg-gold-400/15 px-2 py-0.5 text-[10px] font-bold text-gold-200">
               {roleLabel}
@@ -183,7 +183,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                     'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition',
                     isActive
                       ? 'bg-white/12 text-white shadow-inner ring-1 ring-white/10'
-                      : 'text-[#d5f5eb]/75 hover:bg-white/5 hover:text-white',
+                      : 'text-[#dbe9f9]/75 hover:bg-white/5 hover:text-white',
                   )
                 }
               >
@@ -193,7 +193,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                       strokeWidth={1.75}
                       className={cn(
                         'h-[18px] w-[18px] shrink-0',
-                        isActive ? 'text-gold-300' : 'text-[#aeead9]/80',
+                        isActive ? 'text-gold-300' : 'text-[#a8c6e8]/80',
                       )}
                     />
                     <span className="flex-1">{t(item.label)}</span>
@@ -213,20 +213,20 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <NavLink
             to="/settings"
             onClick={closeMobile}
-            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-[#d5f5eb]/75 transition hover:bg-white/5 hover:text-white"
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-[#dbe9f9]/75 transition hover:bg-white/5 hover:text-white"
           >
-            <Settings className="h-[18px] w-[18px] text-[#aeead9]/70" />
+            <Settings className="h-[18px] w-[18px] text-[#a8c6e8]/70" />
             {t('إعدادات الحساب')}
           </NavLink>
           <button
             type="button"
             onClick={onLogout}
-            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-[#d5f5eb]/75 transition hover:bg-white/5 hover:text-white"
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-[#dbe9f9]/75 transition hover:bg-white/5 hover:text-white"
           >
-            <LogOut className="h-[18px] w-[18px] text-[#aeead9]/70" />
+            <LogOut className="h-[18px] w-[18px] text-[#a8c6e8]/70" />
             {t('تسجيل الخروج')}
           </button>
-          <p className="mt-2 px-3 text-[10px] leading-5 text-[#aeead9]/50">
+          <p className="mt-2 px-3 text-[10px] leading-5 text-[#a8c6e8]/50">
             {t('نظام استشاري فقط — لا يتم تسجيل أي مقررات تلقائيًا.')}
           </p>
         </div>
