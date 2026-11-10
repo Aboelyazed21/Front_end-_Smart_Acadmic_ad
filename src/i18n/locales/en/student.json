@@ -126,7 +126,7 @@
   "إنشاء خطة جديدة": "Create new plan",
   "إنشاء مسودة خطة": "Create a draft plan",
   "أُنشئت: {{date}}": "Created: {{date}}",
-  "أهلًا، {{program}} — {{term}}": "Hello, {{program}} — {{term}}",
+  "أهلًا، {{name}} — {{term}}": "Hello, {{name}} — {{term}}",
   "أو التقدير": "Or grade",
   "أيام يُفضّل تجنّبها": "Days to avoid",
   "بحث بكود أو قاعدة…": "Search by code or rule…",

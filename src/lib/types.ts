@@ -121,7 +121,10 @@ export interface StudentProfile {
     passedCredits: number;
     transferCredits: number;
     regularSemestersCompleted: number;
-    advisorId: string | null;
+    fullName: string;
+    email: string;
+    phone: string | null;
+    advisorId?: string | null;
   };
   advisor: {
     id: string;

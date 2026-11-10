@@ -14,7 +14,7 @@ import {
   UserRound,
 } from 'lucide-react';
 import { api, errorMessage, qs } from '../../lib/api';
-import { PROGRAM_LABELS, PLAN_STATUS_LABELS } from '../../lib/constants';
+import { PLAN_STATUS_LABELS } from '../../lib/constants';
 import { formatInt, formatNumber, formatTerm } from '../../lib/format';
 import type { StudentDashboard } from '../../lib/types';
 import { Badge } from '../../components/ui/Badge';
@@ -47,8 +47,8 @@ export function StudentDashboardPage() {
     <div>
       <PageHeader
         eyebrow={t('لوحة الطالب')}
-        title={t('أهلًا، {{program}} — {{term}}', {
-          program: profile.student.program ? t(PROGRAM_LABELS[profile.student.program].ar) : '',
+        title={t('أهلًا، {{name}} — {{term}}', {
+          name: student.fullName ?? '',
           term: data.term.value ? formatTerm(data.term.value) : '',
         })}
         description={t(
