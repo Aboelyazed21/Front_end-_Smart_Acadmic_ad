@@ -270,6 +270,51 @@
   .skip-link {
     @apply sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-brand-700 focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white;
   }
+
+  /* ------------------------------------------------------------------------
+     Segmented control (language / interface theme in the header and auth
+     screens). A single indicator slides to the active option, so the control
+     reads as one piece instead of several loose buttons. Sizes shrink on
+     narrow screens to keep the header from overflowing.
+     ------------------------------------------------------------------------ */
+  .segmented {
+    --seg-w: 2rem;
+    --seg-pad: 0.25rem;
+  }
+
+  .segmented-item {
+    width: var(--seg-w);
+  }
+
+  .segmented-indicator {
+    width: var(--seg-w);
+    transition: inset-inline-start 200ms ease;
+  }
+
+  .segmented-indicator[data-index='0'] {
+    inset-inline-start: var(--seg-pad);
+  }
+
+  .segmented-indicator[data-index='1'] {
+    inset-inline-start: calc(var(--seg-pad) + var(--seg-w));
+  }
+
+  .segmented-indicator[data-index='2'] {
+    inset-inline-start: calc(var(--seg-pad) + 2 * var(--seg-w));
+  }
+
+  @media (max-width: 639.98px) {
+    .segmented {
+      --seg-w: 1.75rem;
+      --seg-pad: 0.1875rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .segmented-indicator {
+      transition: none;
+    }
+  }
 }
 
 /* --------------------------------------------------------------------------

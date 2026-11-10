@@ -267,12 +267,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <div
                 role="group"
                 aria-label={t('تبديل اللغة')}
-                className="relative inline-flex h-9 items-center rounded-xl border border-ink-200/80 bg-ink-50/70 p-1 shadow-inner"
+                className="segmented relative inline-flex h-9 items-center rounded-xl border border-ink-200/80 bg-ink-50/70 p-[var(--seg-pad)] shadow-inner"
               >
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute bottom-1 top-1 w-8 rounded-lg bg-gradient-to-b from-primary to-brand-600 shadow-sm ring-1 ring-black/5 transition-[inset-inline-start] duration-200 ease-out"
-                  style={{ insetInlineStart: lang === 'en' ? '0.25rem' : '2.25rem' }}
+                  data-index={lang === 'en' ? 0 : 1}
+                  className="segmented-indicator pointer-events-none absolute bottom-1 top-1 rounded-lg bg-gradient-to-b from-primary to-brand-600 shadow-sm ring-1 ring-black/5"
                 />
                 {(
                   [
@@ -289,7 +289,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                       aria-pressed={active}
                       title={option.title}
                       className={cn(
-                        'relative z-10 inline-flex h-7 w-8 items-center justify-center rounded-lg text-[11px] font-bold tracking-wide transition-colors',
+                        'segmented-item relative z-10 inline-flex h-7 items-center justify-center rounded-lg text-[11px] font-bold tracking-wide transition-colors',
                         active ? 'text-on-primary' : 'text-ink-500 hover:text-ink-900',
                       )}
                     >
@@ -302,14 +302,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <div
                 role="group"
                 aria-label={t('مظهر الواجهة')}
-                className="relative inline-flex h-9 items-center rounded-xl border border-ink-200/80 bg-ink-50/70 p-1 shadow-inner"
+                className="segmented relative inline-flex h-9 items-center rounded-xl border border-ink-200/80 bg-ink-50/70 p-[var(--seg-pad)] shadow-inner"
               >
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute bottom-1 top-1 w-8 rounded-lg bg-gradient-to-b from-primary to-brand-600 shadow-sm ring-1 ring-black/5 transition-[inset-inline-start] duration-200 ease-out"
-                  style={{
-                    insetInlineStart: `calc(0.25rem + ${['light', 'dark', 'system'].indexOf(theme)} * 2rem)`,
-                  }}
+                  data-index={['light', 'dark', 'system'].indexOf(theme)}
+                  className="segmented-indicator pointer-events-none absolute bottom-1 top-1 rounded-lg bg-gradient-to-b from-primary to-brand-600 shadow-sm ring-1 ring-black/5"
                 />
                 {(
                   [
@@ -329,7 +327,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                       aria-label={option.title}
                       title={option.title}
                       className={cn(
-                        'relative z-10 inline-flex h-7 w-8 items-center justify-center rounded-lg transition-colors',
+                        'segmented-item relative z-10 inline-flex h-7 items-center justify-center rounded-lg transition-colors',
                         active ? 'text-on-primary' : 'text-ink-500 hover:text-ink-900',
                       )}
                     >

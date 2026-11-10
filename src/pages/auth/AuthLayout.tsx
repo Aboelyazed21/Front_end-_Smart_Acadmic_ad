@@ -116,12 +116,12 @@ export function AuthLayout({
         <div
           role="group"
           aria-label={t('مظهر الواجهة')}
-          className="absolute end-4 top-4 z-10 inline-flex h-9 items-center rounded-xl border border-ink-200/80 bg-ink-50/70 p-1 shadow-inner backdrop-blur"
+          className="segmented absolute end-4 top-4 z-10 inline-flex h-9 items-center rounded-xl border border-ink-200/80 bg-ink-50/70 p-[var(--seg-pad)] shadow-inner backdrop-blur"
         >
           <span
             aria-hidden
-            className="pointer-events-none absolute bottom-1 top-1 w-8 rounded-lg bg-gradient-to-b from-primary to-brand-600 shadow-sm ring-1 ring-black/5 transition-[inset-inline-start] duration-200 ease-out"
-            style={{ insetInlineStart: resolvedTheme === 'light' ? '0.25rem' : '2.25rem' }}
+            data-index={resolvedTheme === 'light' ? 0 : 1}
+            className="segmented-indicator pointer-events-none absolute bottom-1 top-1 rounded-lg bg-gradient-to-b from-primary to-brand-600 shadow-sm ring-1 ring-black/5"
           />
           {(
             [
@@ -140,7 +140,7 @@ export function AuthLayout({
                 aria-label={option.title}
                 title={option.title}
                 className={[
-                  'relative z-10 inline-flex h-7 w-8 items-center justify-center rounded-lg transition-colors',
+                  'segmented-item relative z-10 inline-flex h-7 items-center justify-center rounded-lg transition-colors',
                   active ? 'text-on-primary' : 'text-ink-500 hover:text-ink-900',
                 ].join(' ')}
               >
