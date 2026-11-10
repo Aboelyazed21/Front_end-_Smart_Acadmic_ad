@@ -19,7 +19,6 @@ import {
   GitCompareArrows,
   GraduationCap,
   Inbox,
-  Languages,
   Library,
   LogOut,
   Menu,
@@ -94,7 +93,7 @@ function Logo() {
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const { user, me, logout } = useAuth();
-  const { theme, cycleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const { lang, toggleLang } = useLanguage();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -265,44 +264,72 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 </NavLink>
               )}
 
-              <button
-                type="button"
-                onClick={toggleLang}
-                className="relative inline-flex h-9 items-center justify-center gap-1 rounded-lg px-2 text-xs font-bold text-ink-600 transition hover:bg-ink-100 hover:text-ink-900 focus-visible:ring-2 focus-visible:ring-brand-400"
+              <div
+                role="group"
                 aria-label={t('تبديل اللغة')}
-                title={lang === 'en' ? t('العربية') : t('English')}
+                className="inline-flex h-9 items-center rounded-lg border border-ink-200 bg-surface p-0.5 shadow-sm"
               >
-                <Languages className="h-4 w-4" aria-hidden />
-                {lang === 'en' ? t('ع') : t('EN')}
-              </button>
+                {(
+                  [
+                    { key: 'en', label: 'EN', title: t('English') },
+                    { key: 'ar', label: 'ع', title: t('العربية') },
+                  ] as const
+                ).map((option) => {
+                  const active = lang === option.key;
+                  return (
+                    <button
+                      key={option.key}
+                      type="button"
+                      onClick={() => !active && toggleLang()}
+                      aria-pressed={active}
+                      title={option.title}
+                      className={cn(
+                        'inline-flex h-8 min-w-8 items-center justify-center rounded-md px-2 text-[11px] font-bold tracking-wide transition',
+                        active
+                          ? 'bg-primary text-on-primary shadow-sm'
+                          : 'text-ink-500 hover:bg-ink-100 hover:text-ink-900',
+                      )}
+                    >
+                      {option.label}
+                    </button>
+                  );
+                })}
+              </div>
 
-              <button
-                type="button"
-                onClick={cycleTheme}
-                className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg text-ink-600 transition hover:bg-ink-100 hover:text-ink-900 focus-visible:ring-2 focus-visible:ring-brand-400"
-                aria-label={
-                  theme === 'light'
-                    ? t('المظهر: فاتح — اضغط للوضع الداكن')
-                    : theme === 'dark'
-                      ? t('المظهر: داكن — اضغط لتفضيل النظام')
-                      : t('المظهر: تفضيل النظام — اضغط للوضع الفاتح')
-                }
-                title={
-                  theme === 'light'
-                    ? t('الوضع الفاتح')
-                    : theme === 'dark'
-                      ? t('الوضع الداكن')
-                      : t('حسب إعداد النظام')
-                }
+              <div
+                role="group"
+                aria-label={t('مظهر الواجهة')}
+                className="inline-flex h-9 items-center rounded-lg border border-ink-200 bg-surface p-0.5 shadow-sm"
               >
-                {theme === 'light' ? (
-                  <Sun className="h-5 w-5" aria-hidden />
-                ) : theme === 'dark' ? (
-                  <Moon className="h-5 w-5" aria-hidden />
-                ) : (
-                  <Monitor className="h-5 w-5" aria-hidden />
-                )}
-              </button>
+                {(
+                  [
+                    { key: 'light', icon: Sun, title: t('الوضع الفاتح') },
+                    { key: 'dark', icon: Moon, title: t('الوضع الداكن') },
+                    { key: 'system', icon: Monitor, title: t('حسب إعداد النظام') },
+                  ] as const
+                ).map((option) => {
+                  const active = theme === option.key;
+                  const Icon = option.icon;
+                  return (
+                    <button
+                      key={option.key}
+                      type="button"
+                      onClick={() => !active && setTheme(option.key)}
+                      aria-pressed={active}
+                      aria-label={option.title}
+                      title={option.title}
+                      className={cn(
+                        'inline-flex h-8 w-8 items-center justify-center rounded-md transition',
+                        active
+                          ? 'bg-primary text-on-primary shadow-sm'
+                          : 'text-ink-500 hover:bg-ink-100 hover:text-ink-900',
+                      )}
+                    >
+                      <Icon className="h-4 w-4" strokeWidth={1.9} aria-hidden />
+                    </button>
+                  );
+                })}
+              </div>
 
               <div className="relative">
                 <button

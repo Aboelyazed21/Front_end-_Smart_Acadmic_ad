@@ -37,7 +37,7 @@ export function AuthLayout({
   footer?: ReactNode;
 }) {
   const { t } = useTranslation();
-  const { resolvedTheme, cycleTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const firstVisit = useFirstVisitTyping();
   useEffect(() => {
     const prev = document.body.style.background;
@@ -113,15 +113,39 @@ export function AuthLayout({
           <img src={buaCampus} alt="" className="h-full w-full object-cover object-center" />
           <div className="absolute inset-0 bg-black/65" />
         </div>
-        <button
-          type="button"
-          onClick={cycleTheme}
-          className="absolute end-4 top-4 z-10 inline-flex items-center gap-2 rounded-xl border border-ink-200 bg-surface/70 px-3 py-2 text-xs font-semibold text-ink-700 shadow-sm backdrop-blur hover:bg-surface"
-          aria-label={t('Toggle dark mode')}
+        <div
+          role="group"
+          aria-label={t('مظهر الواجهة')}
+          className="absolute end-4 top-4 z-10 inline-flex items-center rounded-xl border border-ink-200 bg-surface/80 p-0.5 shadow-sm backdrop-blur"
         >
-          {resolvedTheme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          <TypewriterText text={resolvedTheme === 'dark' ? t('Light') : t('Dark')} speed={40} active={firstVisit} />
-        </button>
+          {(
+            [
+              { key: 'light', icon: Sun, title: t('الوضع الفاتح') },
+              { key: 'dark', icon: Moon, title: t('الوضع الداكن') },
+            ] as const
+          ).map((option) => {
+            const active = resolvedTheme === option.key;
+            const Icon = option.icon;
+            return (
+              <button
+                key={option.key}
+                type="button"
+                onClick={() => setTheme(option.key)}
+                aria-pressed={active}
+                aria-label={option.title}
+                title={option.title}
+                className={[
+                  'inline-flex h-8 w-8 items-center justify-center rounded-lg transition',
+                  active
+                    ? 'bg-primary text-on-primary shadow-sm'
+                    : 'text-ink-500 hover:bg-ink-100 hover:text-ink-900',
+                ].join(' ')}
+              >
+                <Icon className="h-4 w-4" strokeWidth={1.9} aria-hidden />
+              </button>
+            );
+          })}
+        </div>
         <div className="relative z-10 w-full max-w-md">
           <div className="mb-7 flex flex-col items-start gap-2 lg:hidden">
             <BuaLogo variant={resolvedTheme === 'dark' ? 'white' : 'navy'} globeClassName="h-11 w-11" wordmarkClassName="h-[40px] w-auto" />
