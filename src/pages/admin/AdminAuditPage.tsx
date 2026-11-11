@@ -157,55 +157,73 @@ export function AdminAuditPage() {
                   </Tr>
                 </THead>
                 <TBody>
-                  {rows.map((row) => (
-                    <Tr key={row.id}>
-                      <Td className="whitespace-nowrap text-xs">{formatDate(row.created_at, true)}</Td>
-                      <Td>
-                        <p className="text-sm font-semibold text-ink-900">{row.actor_name ?? t('النظام')}</p>
-                        {row.actor_id && (
-                          <p className="font-mono text-[10px] text-ink-400">{row.actor_id.slice(0, 8)}…</p>
-                        )}
-                      </Td>
-                      <Td>
-                        <Badge tone="brand" className="font-mono text-[10px]">
-                          {row.action}
-                        </Badge>
-                      </Td>
-                      <Td>
-                        <p className="text-xs font-semibold text-ink-700">{humanize(row.entity_type)}</p>
-                        {row.entity_id && (
-                          <p className="max-w-[10rem] truncate font-mono text-[10px] text-ink-400">{row.entity_id}</p>
-                        )}
-                      </Td>
-                      <Td className="font-mono text-[11px] text-ink-500" dir="ltr">
-                        {row.ip ?? '—'}
-                      </Td>
-                      <Td>
-                        <details className="max-w-xs">
-                          <summary className="cursor-pointer text-xs font-semibold text-brand-700">
-                            {t('عرض JSON')}
-                          </summary>
-                          <div className="mt-2 space-y-2">
-                            <div>
-                              <p className="text-[10px] font-bold uppercase text-ink-400">before</p>
-                              <pre className="max-h-40 overflow-auto rounded-lg bg-code p-2 text-[10px] leading-4 text-code-fg" dir="ltr">
-                                {JSON.stringify(row.before ?? null, null, 2)}
-                              </pre>
+                  {rows.map((row) => {
+                    const hasPayload = Boolean(row.before || row.after);
+                    return (
+                      <Tr key={row.id}>
+                        <Td className="whitespace-nowrap text-xs">{formatDate(row.created_at, true)}</Td>
+                        <Td>
+                          <p className="text-sm font-semibold text-ink-900">{row.actor_name ?? t('النظام')}</p>
+                          {row.actor_id && (
+                            <p className="font-mono text-[10px] text-ink-400">{row.actor_id.slice(0, 8)}…</p>
+                          )}
+                        </Td>
+                        <Td>
+                          <Badge tone="brand" className="font-mono text-[10px]">
+                            {row.action}
+                          </Badge>
+                        </Td>
+                        <Td>
+                          <p className="text-xs font-semibold text-ink-700">{humanize(row.entity_type)}</p>
+                          {row.entity_id && (
+                            <p className="max-w-[10rem] truncate font-mono text-[10px] text-ink-400">{row.entity_id}</p>
+                          )}
+                        </Td>
+                        <Td className="font-mono text-[11px] text-ink-500" dir="ltr">
+                          {row.ip ?? '—'}
+                        </Td>
+                        <Td>
+                          {hasPayload ? (
+                            <details className="max-w-xs">
+                              <summary className="cursor-pointer text-xs font-semibold text-brand-700">
+                                {t('عرض JSON')}
+                              </summary>
+                              <div className="mt-2 space-y-2">
+                                <div>
+                                  <p className="text-[10px] font-bold uppercase text-ink-400">before</p>
+                                  <pre className="max-h-40 overflow-auto rounded-lg bg-code p-2 text-[10px] leading-4 text-code-fg" dir="ltr">
+                                    {JSON.stringify(row.before ?? null, null, 2)}
+                                  </pre>
+                                </div>
+                                <div>
+                                  <p className="text-[10px] font-bold uppercase text-ink-400">after</p>
+                                  <pre className="max-h-40 overflow-auto rounded-lg bg-emerald-950 p-2 text-[10px] leading-4 text-emerald-100" dir="ltr">
+                                    {JSON.stringify(row.after ?? null, null, 2)}
+                                  </pre>
+                                </div>
+                                {row.correlation_id && (
+                                  <p className="break-all font-mono text-[10px] text-ink-400">{row.correlation_id}</p>
+                                )}
+                              </div>
+                            </details>
+                          ) : (
+                            <div className="max-w-[12rem]">
+                              <p className="text-[11px] text-ink-400">{t('لا توجد تغييرات في البيانات')}</p>
+                              {row.correlation_id && (
+                                <p
+                                  className="truncate font-mono text-[10px] text-ink-300"
+                                  dir="ltr"
+                                  title={row.correlation_id}
+                                >
+                                  {row.correlation_id}
+                                </p>
+                              )}
                             </div>
-                            <div>
-                              <p className="text-[10px] font-bold uppercase text-ink-400">after</p>
-                              <pre className="max-h-40 overflow-auto rounded-lg bg-emerald-950 p-2 text-[10px] leading-4 text-emerald-100" dir="ltr">
-                                {JSON.stringify(row.after ?? null, null, 2)}
-                              </pre>
-                            </div>
-                            {row.correlation_id && (
-                              <p className="break-all font-mono text-[10px] text-ink-400">{row.correlation_id}</p>
-                            )}
-                          </div>
-                        </details>
-                      </Td>
-                    </Tr>
-                  ))}
+                          )}
+                        </Td>
+                      </Tr>
+                    );
+                  })}
                 </TBody>
               </Table>
             </TableWrap>

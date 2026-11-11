@@ -394,5 +394,6 @@
   "سيتم إنشاء كلمة مرور مؤقتة جديدة وإرسالها إلى بريد المستخدم. ستتوقف كلمة المرور الحالية عن العمل فورًا.": "A new temporary password will be generated and emailed to the user. Their current password stops working immediately.",
   "سيفقد المستخدم القدرة على تسجيل الدخول فورًا. لا يُحذف الحساب، ويمكن إعادة تفعيله من «تعديل». تُسجّل العملية في سجل التدقيق.": "The user loses access immediately. The account is not deleted and can be re-activated from “Edit”. The action is recorded in the audit log.",
   "يُطلب من المستخدم تغيير كلمة المرور عند أول تسجيل دخول.": "The user is asked to change it at first sign-in.",
-  "هذا الإجراء قابل للتراجع من خلال تعديل حالة الحساب.": "You can reverse this later by editing the account status."
+  "هذا الإجراء قابل للتراجع من خلال تعديل حالة الحساب.": "You can reverse this later by editing the account status.",
+  "لا توجد تغييرات في البيانات": "No data changes"
 }
