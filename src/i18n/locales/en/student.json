@@ -151,7 +151,7 @@
   "تعذر تقديم الخطة": "Could not submit the plan",
   "تعليم الكل كمقروء": "Mark all as read",
   "تعليم كمقروء": "Mark as read",
-  "تفصيل القرارات": "Decision details",
+  "تفصيل القرارات": "Decisions breakdown",
   "تفصيل المقررات المحاكاة": "Simulated course details",
   "تفضيل المحاضرات الصباحية": "Prefer morning lectures",
   "تقديم للمرشد": "Submit to advisor",
@@ -310,5 +310,10 @@
   "علوم الحاسب (CS)": "Computer Science (CS)",
   "تكنولوجيا المعلومات (IT)": "Information Technology (IT)",
   "الذكاء الاصطناعي (AI)": "Artificial Intelligence (AI)",
-  "علوم البيانات (DS)": "Data Science (DS)"
+  "علوم البيانات (DS)": "Data Science (DS)",
+  "معايير التقييم": "Evaluation criteria",
+  "دلالة الحالات": "Status legend",
+  "اترك أكواد المقررات فارغة لتقييم المقررات المرشحة والراسبة، وأدخل الساعات المخططة لحساب قرار العبء.": "Leave course codes empty to evaluate candidate and failed courses; enter planned credits to compute the load decision.",
+  "{{pct}}٪ من القرارات": "{{pct}}% of decisions",
+  "عرض {{shown}} من {{total}}": "Showing {{shown}} of {{total}}"
 }

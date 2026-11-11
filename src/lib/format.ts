@@ -14,6 +14,9 @@ export function formatNumber(value: number | string | null | undefined, digits =
   return new Intl.NumberFormat(currentLocale(), {
     minimumFractionDigits: Number.isInteger(num) && digits === 0 ? 0 : Math.min(digits, 2),
     maximumFractionDigits: Math.min(digits, 2),
+    // Keep Latin digits everywhere so codes, counts and percentages never mix
+    // Arabic-Indic and Western numerals on the same screen.
+    numberingSystem: 'latn',
   }).format(num);
 }
 
@@ -34,6 +37,7 @@ export function formatDate(value: string | Date | null | undefined, withTime = f
     year: 'numeric',
     month: 'short',
     day: '2-digit',
+    numberingSystem: 'latn',
     ...(withTime ? { hour: '2-digit', minute: '2-digit' } : {}),
   }).format(date);
 }
