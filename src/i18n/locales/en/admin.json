@@ -378,5 +378,21 @@
   "هذا تعارض مانع: كل قرار مرتبط به يُعاد كـ REVIEW_REQUIRED وتُنشأ حالة محوّلة للمرشد. لا يمكن تجاوز القاعدة.": "This is a blocking conflict: every linked decision is returned as REVIEW_REQUIRED and an escalated case is created for the advisor. The rule cannot be bypassed.",
   "هذه القاعدة مرجع ثابت للقرارات. لا تُعدّل من الواجهة؛ أي تغيير يتطلب تحديث بيانات اللائحة وإعادة الاستيراد.": "This rule is a fixed reference for decisions. It cannot be edited from the UI; any change requires updating the regulation data and re-importing.",
   "يجب أن يكون الحد أكبر من أو يساوي عدد الطلاب الحالي.": "The limit must be greater than or equal to the current number of students.",
-  "يفتح لاحقًا": "Opens later"
+  "يفتح لاحقًا": "Opens later",
+  "الحسابات": "Accounts",
+  "{{n}} حسابات": "{{n}} accounts",
+  "نتائج مفلترة": "Filtered results",
+  "مسح عوامل التصفية": "Clear filters",
+  "مؤقتة": "Temporary",
+  "محدّثة": "Up to date",
+  "أنت": "You",
+  "لا يمكنك تعطيل حسابك الحالي": "You cannot disable your own account",
+  "تأكيد إعادة تعيين كلمة المرور": "Reset this password?",
+  "تأكيد تعطيل الحساب": "Disable this account?",
+  "نعم، أعد التعيين": "Yes, reset password",
+  "نعم، عطّل الحساب": "Yes, disable account",
+  "سيتم إنشاء كلمة مرور مؤقتة جديدة وإرسالها إلى بريد المستخدم. ستتوقف كلمة المرور الحالية عن العمل فورًا.": "A new temporary password will be generated and emailed to the user. Their current password stops working immediately.",
+  "سيفقد المستخدم القدرة على تسجيل الدخول فورًا. لا يُحذف الحساب، ويمكن إعادة تفعيله من «تعديل». تُسجّل العملية في سجل التدقيق.": "The user loses access immediately. The account is not deleted and can be re-activated from “Edit”. The action is recorded in the audit log.",
+  "يُطلب من المستخدم تغيير كلمة المرور عند أول تسجيل دخول.": "The user is asked to change it at first sign-in.",
+  "هذا الإجراء قابل للتراجع من خلال تعديل حالة الحساب.": "You can reverse this later by editing the account status."
 }
