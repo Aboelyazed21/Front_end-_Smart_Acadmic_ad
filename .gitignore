@@ -1,6 +1,11 @@
 node_modules/
 dist/
 coverage/
+# Python artefacts must never be committed to this frontend repo
+rule-engine/
+.coverage
+__pycache__/
+*.pyc
 *.tsbuildinfo
 .env
 .env.local

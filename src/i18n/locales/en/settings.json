@@ -42,5 +42,10 @@
   "تعذر تغيير كلمة المرور": "Could not change password",
   "تم إنهاء الجلسة": "Session ended",
   "تعذر إنهاء الجلسة": "Could not end session",
-  "تعذر إنهاء الجلسات": "Could not end sessions"
+  "تعذر إنهاء الجلسات": "Could not end sessions",
+  "تعديل بيانات التواصل": "Edit contact details",
+  "تم تحديث بيانات التواصل": "Contact details updated",
+  "رقم الهاتف": "Phone number",
+  "لا يمكن تغيير البريد أو الرقم الجامعي أو البرنامج من هنا.": "Your email, student code and program cannot be changed here.",
+  "يمكنك تعديل الاسم ورقم الهاتف فقط. باقي بياناتك تُدار من إدارة الكلية.": "You can only edit your name and phone number; the rest of your record is managed by the college."
 }

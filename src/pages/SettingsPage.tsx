@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { KeyRound, LogOut, Monitor, ShieldCheck, Smartphone } from 'lucide-react';
+import { KeyRound, LogOut, Monitor, Pencil, ShieldCheck, Smartphone } from 'lucide-react';
 import { api, errorMessage } from '../lib/api';
 import { useAuth } from '../auth/AuthProvider';
 import type { AuthSessionRow } from '../lib/types';
@@ -18,6 +18,11 @@ import { Modal } from '../components/ui/Modal';
 import { KeyValue, PageHeader } from '../components/ui/Page';
 import { useToast } from '../components/ui/Toast';
 
+interface StudentProfile {
+  fullName: string;
+  phone: string | null;
+}
+
 export function SettingsPage() {
   const { user, me, reloadMe, logoutAll } = useAuth();
   const { t } = useTranslation();
@@ -29,6 +34,17 @@ export function SettingsPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [logoutOpen, setLogoutOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const isStudent = user?.role === 'student';
+
+  const profile = useQuery({
+    queryKey: ['student', 'profile'],
+    queryFn: () => api<{ data: { student: StudentProfile } }>('/student/profile'),
+    enabled: isStudent,
+  });
 
   const sessions = useQuery({
     queryKey: ['auth', 'sessions'],
@@ -73,6 +89,21 @@ export function SettingsPage() {
     onError: (error) => toast.error(t('تعذر إنهاء الجلسات'), errorMessage(error)),
   });
 
+  const updateProfile = useMutation({
+    mutationFn: () =>
+      api('/student/profile', {
+        method: 'PATCH',
+        body: { fullName: fullName.trim(), phone: phone.trim() || null },
+      }),
+    onSuccess: async () => {
+      toast.success(t('تم تحديث بيانات التواصل'));
+      setProfileOpen(false);
+      await reloadMe();
+      await queryClient.invalidateQueries({ queryKey: ['student', 'profile'] });
+    },
+    onError: (error) => toast.error(t('تعذر تحديث البيانات'), errorMessage(error)),
+  });
+
   const checks = passwordChecks(newPassword);
   const mismatch = confirm.length > 0 && confirm !== newPassword;
   const canChange = currentPassword.length > 0 && checks.every((check) => check.ok) && !mismatch;
@@ -92,7 +123,26 @@ export function SettingsPage() {
       <div className="grid gap-4 lg:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle>{t('الملف الشخصي')}</CardTitle>
+            <CardTitle
+              action={
+                isStudent ? (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    icon={<Pencil className="h-4 w-4" />}
+                    onClick={() => {
+                      setFullName(profile.data?.data.student.fullName ?? user?.fullName ?? '');
+                      setPhone(profile.data?.data.student.phone ?? user?.phone ?? '');
+                      setProfileOpen(true);
+                    }}
+                  >
+                    {t('تعديل')}
+                  </Button>
+                ) : undefined
+              }
+            >
+              {t('الملف الشخصي')}
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <dl>
@@ -313,6 +363,48 @@ export function SettingsPage() {
         <Alert tone="warning">
           {t('أي عمل غير محفوظ سيُفقد. ستحتاج إلى تسجيل الدخول مجددًا للمتابعة.')}
         </Alert>
+      </Modal>
+
+      <Modal
+        open={profileOpen}
+        onClose={() => setProfileOpen(false)}
+        title={t('تعديل بيانات التواصل')}
+        description={t('يمكنك تعديل الاسم ورقم الهاتف فقط. باقي بياناتك تُدار من إدارة الكلية.')}
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setProfileOpen(false)}>
+              {t('إلغاء')}
+            </Button>
+            <Button
+              onClick={() => updateProfile.mutate()}
+              loading={updateProfile.isPending}
+              disabled={fullName.trim().length < 2}
+            >
+              {t('حفظ')}
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-3">
+          {updateProfile.isError && <Alert tone="danger">{errorMessage(updateProfile.error)}</Alert>}
+          <Input
+            label={t('الاسم الكامل')}
+            value={fullName}
+            onChange={(event) => setFullName(event.target.value)}
+            maxLength={200}
+            required
+          />
+          <Input
+            label={t('رقم الهاتف')}
+            type="tel"
+            dir="ltr"
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
+            maxLength={30}
+            placeholder="01000000000"
+          />
+          <Alert tone="info">{t('لا يمكن تغيير البريد أو الرقم الجامعي أو البرنامج من هنا.')}</Alert>
+        </div>
       </Modal>
     </div>
   );

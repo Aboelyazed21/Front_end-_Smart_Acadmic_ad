@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { Pencil, UserCog } from 'lucide-react';
+import { Pencil, UserCog, UserPlus } from 'lucide-react';
 import { api, errorMessage } from '../../lib/api';
 import type { AdvisorAdminRow, Department } from '../../lib/types';
 import { formatInt } from '../../lib/format';
@@ -23,6 +23,11 @@ export function AdminAdvisorsPage() {
   const [departmentId, setDepartmentId] = useState('');
   const [office, setOffice] = useState('');
   const [maxStudents, setMaxStudents] = useState('60');
+  const [adding, setAdding] = useState(false);
+  const [newEmail, setNewEmail] = useState('');
+  const [newName, setNewName] = useState('');
+  const [newDepartmentId, setNewDepartmentId] = useState('');
+  const [newOffice, setNewOffice] = useState('');
 
   const query = useQuery({
     queryKey: ['admin', 'advisors'],
@@ -51,6 +56,36 @@ export function AdminAdvisorsPage() {
     onError: (error) => toast.error(t('تعذر تحديث المرشد'), errorMessage(error)),
   });
 
+  const create = useMutation({
+    mutationFn: () =>
+      api<{ data: { user: { id: string; email: string }; advisor: AdvisorAdminRow } }>('/admin/advisors', {
+        method: 'POST',
+        body: {
+          email: newEmail.trim(),
+          ...(newName.trim() ? { fullName: newName.trim() } : {}),
+          ...(newDepartmentId ? { departmentId: newDepartmentId } : {}),
+          ...(newOffice.trim() ? { officeLocation: newOffice.trim() } : {}),
+        },
+      }),
+    onSuccess: async () => {
+      toast.success(
+        t('تم إنشاء حساب مرشد أكاديمي'),
+        t('تم إرسال كلمة المرور المؤقتة إلى بريد المرشد. سيُطلب منه تغييرها عند أول دخول.'),
+      );
+      resetAddForm();
+      await queryClient.invalidateQueries({ queryKey: ['admin', 'advisors'] });
+    },
+    onError: (error) => toast.error(t('تعذر إنشاء الحساب'), errorMessage(error)),
+  });
+
+  function resetAddForm() {
+    setAdding(false);
+    setNewEmail('');
+    setNewName('');
+    setNewDepartmentId('');
+    setNewOffice('');
+  }
+
   const rows = query.data?.data ?? [];
   const departmentOptions = (departments.data?.data ?? []).map((item) => ({
     value: item.id,
@@ -65,8 +100,19 @@ export function AdminAdvisorsPage() {
         eyebrow={t('إدارة المرشدين')}
         title={t('المرشدون الأكاديميون')}
         description={t(
-          'إدارة أقسام المرشدين، مكاتبهم، والحد الأقصى لعدد الطلاب. لا يمكن إسناد طالب بعد بلوغ الحد.',
+          'إدارة أقسام المرشدين، مكاتبهم، والحد الأقصى لعدد الطلاب. يمكنك إنشاء مرشد جديد بالبريد الإلكتروني مباشرة.',
         )}
+        actions={
+          <Button
+            onClick={() => {
+              resetAddForm();
+              setAdding(true);
+            }}
+            icon={<UserPlus className="h-4 w-4" />}
+          >
+            {t('إضافة مرشد بالبريد')}
+          </Button>
+        }
       />
 
       {query.isLoading ? (
@@ -78,7 +124,7 @@ export function AdminAdvisorsPage() {
           <CardContent>
             <div className="flex flex-col items-center gap-2 py-10 text-center text-sm text-ink-500">
               <UserCog className="h-8 w-8 text-ink-300" />
-              {t('لا يوجد مرشدون. أنشئ حساب مرشد من صفحة المستخدمين.')}
+              {t('لا يوجد مرشدون بعد. أنشئ أول مرشد بالبريد الإلكتروني من الزر بالأعلى.')}
             </div>
           </CardContent>
         </Card>
@@ -197,6 +243,64 @@ export function AdminAdvisorsPage() {
             }
             hint={t('يجب أن يكون الحد أكبر من أو يساوي عدد الطلاب الحالي.')}
           />
+        </div>
+      </Modal>
+
+      <Modal
+        open={adding}
+        onClose={resetAddForm}
+        title={t('إضافة مرشد بالبريد')}
+        description={t('أدخل بريد المرشد الأكاديمي لإنشاء حساب مرشد عادي وإرسال كلمة المرور المؤقتة إليه.')}
+        footer={
+          <>
+            <Button variant="ghost" onClick={resetAddForm}>
+              {t('إلغاء')}
+            </Button>
+            <Button
+              onClick={() => create.mutate()}
+              loading={create.isPending}
+              disabled={!newEmail.trim()}
+            >
+              {t('إنشاء الحساب')}
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-3">
+          {create.isError && <Alert tone="danger">{errorMessage(create.error)}</Alert>}
+          <Input
+            label={t('البريد الإلكتروني')}
+            type="email"
+            dir="ltr"
+            value={newEmail}
+            onChange={(event) => setNewEmail(event.target.value)}
+            placeholder="advisor@bua.edu.eg"
+            required
+          />
+          <Input
+            label={t('الاسم الكامل')}
+            value={newName}
+            onChange={(event) => setNewName(event.target.value)}
+            maxLength={200}
+            hint={t('اختياري. يُشتق الاسم من البريد إذا تُرك فارغًا.')}
+          />
+          <Select
+            label={t('القسم')}
+            value={newDepartmentId}
+            onChange={(event) => setNewDepartmentId(event.target.value)}
+            placeholder={t('بدون قسم')}
+            options={departmentOptions}
+          />
+          <Input
+            label={t('المكتب')}
+            value={newOffice}
+            onChange={(event) => setNewOffice(event.target.value)}
+            maxLength={200}
+            placeholder={t('مبنى الكلية — 204')}
+          />
+          <Alert tone="info">
+            {t('ستُرسل كلمة المرور المؤقتة إلى البريد، ويُطلب من المرشد تغييرها عند أول دخول.')}
+          </Alert>
         </div>
       </Modal>
     </div>

@@ -5,7 +5,8 @@ import { BookOpenCheck, GraduationCap, Moon, ShieldCheck, Sun } from 'lucide-rea
 import { BuaLogo } from '../../components/brand/BuaLogo';
 import { useTheme } from '../../theme/ThemeProvider';
 import buaCampus from '../../assets/bua-campus.jpg';
-import { TypewriterText, useFirstVisitTyping } from '../../components/ui/TypewriterText';
+import { TypewriterText } from '../../components/ui/TypewriterText';
+import { useFirstVisitTyping } from '../../components/ui/useFirstVisitTyping';
 
 const FEATURES = [
   {

@@ -36,6 +36,7 @@ import { AdminUsersPage } from './pages/admin/AdminUsersPage';
 import { AdminStudentsPage } from './pages/admin/AdminStudentsPage';
 import { AdminStudentDetailPage } from './pages/admin/AdminStudentDetailPage';
 import { AdminAdvisorsPage } from './pages/admin/AdminAdvisorsPage';
+import { AdminNotificationsPage } from './pages/admin/AdminNotificationsPage';
 import { AdminDepartmentsPage } from './pages/admin/AdminDepartmentsPage';
 import { AdminCoursesPage } from './pages/admin/AdminCoursesPage';
 import { AdminCourseDetailPage } from './pages/admin/AdminCourseDetailPage';
@@ -118,6 +119,7 @@ export default function App() {
             <Route path="/admin/students" element={<AdminStudentsPage />} />
             <Route path="/admin/students/:id" element={<AdminStudentDetailPage />} />
             <Route path="/admin/advisors" element={<AdminAdvisorsPage />} />
+            <Route path="/admin/notifications" element={<AdminNotificationsPage />} />
             <Route path="/admin/departments" element={<AdminDepartmentsPage />} />
             <Route path="/admin/courses" element={<AdminCoursesPage />} />
             <Route path="/admin/courses/:id" element={<AdminCourseDetailPage />} />

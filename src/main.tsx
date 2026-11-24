@@ -6,6 +6,7 @@ import { AuthProvider } from './auth/AuthProvider';
 import { ThemeProvider } from './theme/ThemeProvider';
 import { LanguageProvider } from './i18n/LanguageProvider';
 import { ToastProvider } from './components/ui/Toast';
+import { ErrorBoundary } from './components/layout/ErrorBoundary';
 import { ApiError } from './lib/api';
 import App from './App';
 import './i18n';
@@ -27,18 +28,20 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <ThemeProvider>
-          <LanguageProvider>
-            <ToastProvider>
-              <AuthProvider>
-                <App />
-              </AuthProvider>
-            </ToastProvider>
-          </LanguageProvider>
-        </ThemeProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <ThemeProvider>
+            <LanguageProvider>
+              <ToastProvider>
+                <AuthProvider>
+                  <App />
+                </AuthProvider>
+              </ToastProvider>
+            </LanguageProvider>
+          </ThemeProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </ErrorBoundary>
   </StrictMode>,
 );

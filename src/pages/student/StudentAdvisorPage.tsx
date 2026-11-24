@@ -59,6 +59,16 @@ export function StudentAdvisorPage() {
     onError: (error) => toast.error(t('تعذر إرسال الطلب'), errorMessage(error)),
   });
 
+  const cancel = useMutation({
+    mutationFn: (id: string) =>
+      api(`/student/office-hours/requests/${id}/cancel`, { method: 'PATCH' }),
+    onSuccess: async () => {
+      toast.success(t('تم إلغاء الطلب'));
+      await queryClient.invalidateQueries({ queryKey: ['student', 'office-hour-requests'] });
+    },
+    onError: (error) => toast.error(t('تعذر إلغاء الطلب'), errorMessage(error)),
+  });
+
   const grouped = useMemo(() => {
     const slots = advisorQuery.data?.data.officeHours ?? [];
     return slots.reduce<Record<number, OfficeHourSlot[]>>((accumulator, slot) => {
@@ -179,11 +189,12 @@ export function StudentAdvisorPage() {
                         <Th>{t('السبب')}</Th>
                         <Th>{t('الحالة')}</Th>
                         <Th>{t('تاريخ الطلب')}</Th>
+                        <Th />
                       </Tr>
                     </THead>
                     <TBody>
                       {(requestsQuery.data?.data.length ?? 0) === 0 ? (
-                        <TableEmpty colSpan={5} message={t('لم تقدّم أي طلبات بعد.')} />
+                        <TableEmpty colSpan={6} message={t('لم تقدّم أي طلبات بعد.')} />
                       ) : (
                         requestsQuery.data?.data.map((item) => {
                           const status = REQUEST_STATUS_LABELS[item.status];
@@ -200,6 +211,20 @@ export function StudentAdvisorPage() {
                                 </Badge>
                               </Td>
                               <Td className="text-xs">{formatDate(item.created_at, true)}</Td>
+                              <Td>
+                                {item.status === 'pending' || item.status === 'approved' ? (
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => cancel.mutate(item.id)}
+                                    loading={cancel.isPending && cancel.variables === item.id}
+                                  >
+                                    {t('إلغاء الطلب')}
+                                  </Button>
+                                ) : (
+                                  <span className="text-xs text-ink-300">—</span>
+                                )}
+                              </Td>
                             </Tr>
                           );
                         })

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { ScrollText, Search } from 'lucide-react';
+import { Download, ScrollText, Search } from 'lucide-react';
 import { api, errorMessage, qs } from '../../lib/api';
 import type { AuditLogRow, Paginated } from '../../lib/types';
 import { formatDate, humanize } from '../../lib/format';
@@ -13,6 +13,7 @@ import { Input } from '../../components/ui/Input';
 import { PageHeader } from '../../components/ui/Page';
 import { PaginationBar } from '../../components/ui/PaginationBar';
 import { Table, TableWrap, TBody, Td, Th, THead, Tr } from '../../components/ui/Table';
+import { useToast } from '../../components/ui/Toast';
 
 const ENTITY_TYPES = [
   'user',
@@ -31,6 +32,7 @@ const ENTITY_TYPES = [
 
 export function AdminAuditPage() {
   const { t } = useTranslation();
+  const toast = useToast();
   const [entityType, setEntityType] = useState('');
   const [action, setAction] = useState('');
   const [entityId, setEntityId] = useState('');
@@ -38,21 +40,39 @@ export function AdminAuditPage() {
   const [to, setTo] = useState('');
   const [page, setPage] = useState(1);
 
+  const filterParams = () => ({
+    entityType: entityType || undefined,
+    action: action.trim() || undefined,
+    entityId: entityId.trim() || undefined,
+    from: from ? new Date(from).toISOString() : undefined,
+    to: to ? new Date(to).toISOString() : undefined,
+  });
+
   const query = useQuery({
     queryKey: ['admin', 'audit', entityType, action, entityId, from, to, page],
     queryFn: () =>
       api<Paginated<AuditLogRow>>(
-        `/admin/audit-logs${qs({
-          entityType: entityType || undefined,
-          action: action.trim() || undefined,
-          entityId: entityId.trim() || undefined,
-          from: from ? new Date(from).toISOString() : undefined,
-          to: to ? new Date(to).toISOString() : undefined,
-          page,
-          limit: 20,
-        })}`,
+        `/admin/audit-logs${qs({ ...filterParams(), page, limit: 20 })}`,
       ),
   });
+
+  const exportCsv = async () => {
+    try {
+      const csv = await api<string>(`/admin/audit-logs/export${qs(filterParams())}`);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = `audit-logs-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+      toast.success(t('تم تنزيل السجل'));
+    } catch (error) {
+      toast.error(t('تعذر تنزيل السجل'), errorMessage(error));
+    }
+  };
 
   const rows = query.data?.data ?? [];
 
@@ -122,9 +142,12 @@ export function AdminAuditPage() {
                 setPage(1);
               }}
             />
-            <div className="flex items-end">
-              <Button type="submit" variant="outline" className="w-full">
+            <div className="flex items-end gap-2">
+              <Button type="submit" variant="outline" className="flex-1">
                 {t('تطبيق')}
+              </Button>
+              <Button type="button" variant="secondary" onClick={() => void exportCsv()} icon={<Download className="h-4 w-4" />}>
+                {t('تنزيل CSV')}
               </Button>
             </div>
           </form>

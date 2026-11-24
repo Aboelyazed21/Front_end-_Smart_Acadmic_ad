@@ -122,6 +122,7 @@ export const NAV_GROUPS = {
     { to: '/admin/users', label: 'المستخدمون', icon: 'UsersRound' },
     { to: '/admin/students', label: 'الطلاب', icon: 'GraduationCap' },
     { to: '/admin/advisors', label: 'المرشدون', icon: 'UserCog' },
+    { to: '/admin/notifications', label: 'الإعلانات', icon: 'Megaphone' },
     { to: '/admin/departments', label: 'الأقسام', icon: 'Building2' },
     { to: '/admin/courses', label: 'المقررات', icon: 'Library' },
     { to: '/admin/anomalies', label: 'تعارضات البيانات', icon: 'FileWarning' },

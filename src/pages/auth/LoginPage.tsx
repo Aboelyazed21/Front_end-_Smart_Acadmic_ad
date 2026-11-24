@@ -9,7 +9,8 @@ import { HOME_BY_ROLE } from '../../lib/constants';
 import { Alert } from '../../components/ui/Feedback';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
-import { TypewriterText, useFirstVisitTyping } from '../../components/ui/TypewriterText';
+import { TypewriterText } from '../../components/ui/TypewriterText';
+import { useFirstVisitTyping } from '../../components/ui/useFirstVisitTyping';
 import { AuthLayout } from './AuthLayout';
 
 export function LoginPage() {

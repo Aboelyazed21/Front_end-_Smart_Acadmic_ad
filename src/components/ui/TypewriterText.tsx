@@ -1,39 +1,13 @@
 import { useEffect, useState } from 'react';
 
-const FIRST_VISIT_KEY = 'aidm-first-visit-typed';
-
-export function useFirstVisitTyping() {
-  const [first, setFirst] = useState(() => {
-    try {
-      return localStorage.getItem(FIRST_VISIT_KEY) !== '1';
-    } catch {
-      return true;
-    }
-  });
-  useEffect(() => {
-    if (!first) return;
-    const t = window.setTimeout(() => {
-      try {
-        localStorage.setItem(FIRST_VISIT_KEY, '1');
-      } catch {}
-      setFirst(false);
-    }, 15000);
-    return () => window.clearTimeout(t);
-  }, [first]);
-  return first;
-}
-
-export function TypewriterText({
-  text,
-  className,
-  speed = 24,
-  active = true,
-}: {
+interface TypewriterTextProps {
   text: string;
   className?: string;
   speed?: number;
   active?: boolean;
-}) {
+}
+
+export function TypewriterText({ text, className, speed = 24, active = true }: TypewriterTextProps) {
   const [shown, setShown] = useState(active ? '' : text);
   useEffect(() => {
     if (!active) {

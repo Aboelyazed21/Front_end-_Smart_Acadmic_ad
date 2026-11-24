@@ -83,12 +83,15 @@
   "English": "English",
   "ع": "AR",
   "EN": "EN",
-  "Toggle dark mode": "Toggle dark mode",
-  "Light": "Light",
   "Dark": "Dark",
   "ثبّت التطبيق على جهازك": "Install the app on your device",
   "من Safari اضغط مشاركة ثم \"إضافة إلى الشاشة الرئيسية\".": "In Safari, tap Share, then \"Add to Home Screen\".",
   "للوصول السريع وتجربة أفضل، ثبّت Smart Academic Advisor على جهازك.": "For quick access and a better experience, install Smart Academic Advisor on your device.",
   "تثبيت": "Install",
-  "لاحقًا": "Later"
+  "لاحقًا": "Later",
+  "حدث خطأ غير متوقع في الواجهة": "Something went wrong in the interface",
+  "أعد تحميل الصفحة للمتابعة. إذا تكرر الخطأ فأبلغ الدعم الفني مع معرّف الوقت.": "Reload the page to continue. If it happens again, report it to support with the timestamp.",
+  "إعادة تحميل الصفحة": "Reload the page",
+  "المحاولة مرة أخرى": "Try again",
+  "إضافة إلى الشاشة الرئيسية": "Add to Home Screen"
 }

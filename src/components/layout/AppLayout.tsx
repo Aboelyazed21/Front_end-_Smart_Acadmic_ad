@@ -21,6 +21,7 @@ import {
   Inbox,
   Library,
   LogOut,
+  Megaphone,
   Menu,
   Monitor,
   Moon,
@@ -72,6 +73,7 @@ const ICONS: Record<string, LucideIcon> = {
   ChartColumn,
   FileUp,
   FileWarning,
+  Megaphone,
 };
 
 function Logo() {
