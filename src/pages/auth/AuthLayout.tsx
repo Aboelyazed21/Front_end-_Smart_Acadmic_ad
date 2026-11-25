@@ -1,30 +1,22 @@
 import { useEffect, type ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { BookOpenCheck, GraduationCap, Moon, ShieldCheck, Sun } from 'lucide-react';
+import { CalendarDays, ChartNoAxesColumn, GraduationCap, MessageCircle, Moon, ShieldCheck, Sun } from 'lucide-react';
 import { BuaLogo } from '../../components/brand/BuaLogo';
 import { useTheme } from '../../theme/ThemeProvider';
 import buaCampus from '../../assets/bua-campus.jpg';
-import { TypewriterText } from '../../components/ui/TypewriterText';
-import { useFirstVisitTyping } from '../../components/ui/useFirstVisitTyping';
 
 const FEATURES = [
-  {
-    icon: ShieldCheck,
-    title: 'كل قرار قابل للتتبع',
-    text: 'ELIGIBLE / NOT_ELIGIBLE / UNKNOWN / REVIEW_REQUIRED مع رقم القاعدة والمادة والصفحة.',
-  },
-  {
-    icon: BookOpenCheck,
-    title: 'إجابات من اللائحة فقط',
-    text: 'المساعد يستشهد بالنص الرسمي، ويحوّل الأسئلة الغامضة إلى مرشد بشري.',
-  },
-  {
-    icon: GraduationCap,
-    title: 'خطط استشارية (DRAFT)',
-    text: 'تخطيط ذكي للفصل القادم مع مراعاة المتطلبات والعبء الأكاديمي والحد الأقصى.',
-  },
-];
+  { icon: MessageCircle, title: 'المساعد الذكي', text: 'اسأل أسئلتك' },
+  { icon: CalendarDays, title: 'حلّ التعارضات', text: 'بلا تعارضات' },
+  { icon: ChartNoAxesColumn, title: 'محاكي المعدل', text: 'خطط لمستقبلك' },
+] as const;
+
+const NAV = [
+  { id: 'home', label: 'الرئيسية', href: '#home' },
+  { id: 'about', label: 'عن المنصة', href: '#about' },
+  { id: 'features', label: 'المزايا', href: '#features' },
+  { id: 'contact', label: 'تواصل معنا', href: '#contact' },
+] as const;
 
 export function AuthLayout({
   title,
@@ -39,7 +31,7 @@ export function AuthLayout({
 }) {
   const { t } = useTranslation();
   const { resolvedTheme, setTheme } = useTheme();
-  const firstVisit = useFirstVisitTyping();
+
   useEffect(() => {
     const prev = document.body.style.background;
     document.body.style.background = 'transparent';
@@ -47,140 +39,150 @@ export function AuthLayout({
       document.body.style.background = prev;
     };
   }, []);
+
   return (
-    <div className="grid min-h-screen bg-transparent capitalize [&_input]:normal-case [&_textarea]:normal-case [&_[dir='ltr']]:normal-case lg:grid-cols-[1.08fr_1fr]">
-      <section className="relative hidden overflow-hidden text-white lg:flex lg:flex-col lg:justify-between">
+    <div className="relative min-h-screen bg-canvas text-ink-900">
+      <header id="home" className="sticky top-0 z-30 border-b border-ink-200/70 bg-surface/90 backdrop-blur-md">
+        <div className="mx-auto grid h-16 max-w-[1440px] grid-cols-[1fr_auto] items-center gap-4 px-4 sm:px-6 lg:grid-cols-[1fr_auto_1fr] lg:px-10">
+          <BuaLogo globeClassName="h-10 w-10" wordmarkClassName="h-9 w-auto" />
+          <nav className="hidden items-center gap-7 text-sm font-semibold text-ink-600 lg:flex" aria-label={t('التنقل الرئيسي')}>
+            {NAV.map((item) => (
+              <a
+                key={item.id}
+                href={item.href}
+                className={
+                  item.id === 'home'
+                    ? 'relative py-5 text-brand-700 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:rounded-full after:bg-brand-600'
+                    : 'py-5 transition-colors hover:text-brand-700'
+                }
+              >
+                {t(item.label)}
+              </a>
+            ))}
+          </nav>
+          <div
+            role="group"
+            aria-label={t('مظهر الواجهة')}
+            className="inline-flex items-center justify-self-end gap-1 rounded-full bg-[#1d5fb4] p-1 shadow-sm ring-1 ring-white/20 dark:bg-brand-500/15 dark:ring-brand-400/30"
+          >
+            {(
+              [
+                { key: 'light', icon: Sun, title: t('الوضع الفاتح') },
+                { key: 'dark', icon: Moon, title: t('الوضع الداكن') },
+              ] as const
+            ).map((option) => {
+              const active = resolvedTheme === option.key;
+              const Icon = option.icon;
+              return (
+                <button
+                  key={option.key}
+                  type="button"
+                  onClick={() => setTheme(option.key)}
+                  aria-pressed={active}
+                  aria-label={option.title}
+                  title={option.title}
+                  className={[
+                    'inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors',
+                    active ? 'bg-white/20 text-white' : 'text-white/65 hover:text-white',
+                  ].join(' ')}
+                >
+                  <Icon className="h-4 w-4" strokeWidth={2} aria-hidden />
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </header>
+
+      <main className="relative overflow-hidden">
         <img
           src={buaCampus}
           alt={t('حرم جامعة بدر بأسيوط')}
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/60 to-black/90"
-          aria-hidden
-        />
-        <div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(229,174,50,0.18),transparent_52%)]"
-          aria-hidden
-        />
-        <div
-          className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black to-transparent"
+          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(199,220,248,0.86)_0%,rgba(233,243,254,0.87)_45%,rgba(248,251,255,0.95)_100%)] dark:bg-[linear-gradient(180deg,rgba(10,27,51,0.92)_0%,rgba(12,23,37,0.92)_45%,rgba(9,9,11,0.96)_100%)]"
           aria-hidden
         />
 
-        <div className="relative p-10 xl:p-12">
-          <div className="inline-flex items-center rounded-2xl bg-white/95 px-4 py-3 shadow-float ring-1 ring-white/60 backdrop-blur-sm">
-            <BuaLogo globeClassName="h-12 w-12" wordmarkClassName="h-[44px] w-auto" />
-          </div>
-          <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/70">
-            {t('كلية تكنولوجيا المعلومات وعلوم البيانات')}
-          </p>
+        <div className="relative mx-auto max-w-[1440px] px-4 pb-4 pt-10 sm:px-6 lg:px-10 lg:pt-14">
+          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
+            <section id="about" className="max-w-xl scroll-mt-24 text-start">
+              <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-xs font-bold text-brand-700 shadow-sm backdrop-blur dark:border-brand-400/30 dark:bg-brand-500/15 dark:text-brand-700">
+                <GraduationCap className="h-4 w-4" />
+                {t('كلية تكنولوجيا المعلومات وعلوم البيانات')}
+              </span>
+              <h1 className="mt-5 max-w-[34rem] font-display text-[1.75rem] font-black leading-[1.2] tracking-tight text-[#0b2e5c] dark:text-white sm:text-[2.15rem] xl:text-[2.6rem]">
+                {t('قرارات أكاديمية واضحة،')} {t('لكل طالب وفي كل فصل.')}
+              </h1>
+              <p className="mt-4 max-w-lg text-sm leading-7 text-[#294a70] dark:text-ink-600 sm:text-[15px]">
+                {t(
+                  'المرشد الأكاديمي الذكي يقرأ لائحة الكلية، يتحقق من المتطلبات، ويشرح كل قرار بالمادة والصفحة — دون أن يسجّل أي مقرر نيابة عن الطالب.',
+                )}
+              </p>
+              <div id="features" className="mt-7 grid max-w-lg scroll-mt-24 gap-3 sm:grid-cols-3">
+                {FEATURES.map(({ icon: Icon, title: featureTitle, text }) => (
+                  <div
+                    key={featureTitle}
+                    className="rounded-2xl border border-white/70 bg-white/85 px-3 py-4 text-center shadow-[0_10px_30px_-18px_rgba(0,58,117,0.45)] backdrop-blur dark:border-white/10 dark:bg-white/5"
+                  >
+                    <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#eaf1fe] text-brand-700 dark:bg-brand-500/15 dark:text-brand-700">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <p className="mt-2 text-sm font-bold text-[#0b2e5c] dark:text-white">{t(featureTitle)}</p>
+                    <p className="mt-0.5 text-[11px] leading-5 text-[#52739a] dark:text-ink-500">{t(text)}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
 
-          <h1 className="mt-12 max-w-xl font-display text-4xl font-black leading-[1.28] text-balance drop-shadow-sm xl:text-[2.75rem]">
-            {t('قرارات أكاديمية واضحة،')}
-            <span className="text-gold-300">{t(' لكل طالب وفي كل فصل.')}</span>
-          </h1>
-          <p className="mt-4 max-w-lg text-sm leading-7 text-white/85">
-            {t(
-              'المرشد الأكاديمي الذكي يقرأ لائحة الكلية، يتحقق من المتطلبات، ويشرح كل قرار بالمادة والصفحة — دون أن يسجّل أي مقرر نيابة عن الطالب.',
-            )}
-          </p>
-
-          <div className="mt-9 grid max-w-lg gap-3">
-            {FEATURES.map(({ icon: Icon, title: featureTitle, text }) => (
-              <div
-                key={featureTitle}
-                className="flex gap-3 rounded-2xl border border-gold-300/45 bg-black/25 p-4 shadow-[0_0_24px_rgba(229,174,50,0.08)] backdrop-blur-xl"
-              >
-                <div className="mt-0.5 shrink-0">
-                  <Icon className="h-5 w-5 text-gold-300" />
+            <section className="relative mx-auto mt-10 w-full max-w-[460px] lg:mt-0">
+              <div className="relative">
+                <div className="absolute left-1/2 top-0 z-10 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-br from-[#2f7ad0] to-[#124a8f] text-white shadow-lg shadow-[#0b2e5c]/30 ring-4 ring-[#f7faff] dark:ring-[#141b26]">
+                  <GraduationCap className="h-7 w-7" />
                 </div>
-                <div>
-                  <p className="text-sm font-bold text-white">{t(featureTitle)}</p>
-                  <p className="mt-0.5 text-xs leading-5 text-white/75">{t(text)}</p>
+                <div className="rounded-[26px] border border-white/80 bg-[#f7faff]/95 px-5 pb-5 pt-12 shadow-[0_30px_80px_-30px_rgba(0,58,117,0.55)] backdrop-blur-md dark:border-white/10 dark:bg-[#141b26]/95 sm:px-7 sm:pb-6">
+                  <h2 className="text-center font-display text-[26px] font-extrabold text-[#0b2e5c] dark:text-white">{title}</h2>
+                  <p className="mx-auto mt-2 max-w-sm text-center text-[13px] leading-6 text-[#52739a] dark:text-ink-500">
+                    {subtitle}
+                  </p>
+                  <div className="mt-5">{children}</div>
+                  {footer && <div className="mt-4 text-center text-[13px] text-[#52739a] dark:text-ink-500">{footer}</div>}
+                  <div className="mt-5 flex items-center justify-center gap-2 rounded-xl border border-[#dbe8fb] bg-[#edf4fe] px-3 py-2.5 text-center text-[11px] font-medium text-[#52739a] dark:border-white/10 dark:bg-white/5 dark:text-ink-500">
+                    <ShieldCheck className="h-4 w-4 shrink-0 text-brand-700 dark:text-brand-700" />
+                    {t('الوصول محمي · الجلسات تُدوّر تلقائيًا')}
+                  </div>
                 </div>
               </div>
-            ))}
+            </section>
           </div>
         </div>
 
-        <p className="relative px-10 pb-8 text-[11px] leading-5 text-white/55 xl:px-12">
-          {t('AIDM · Badr University in Assiut · منصة استشارية لا تُنشئ تسجيلًا رسميًا.')}
-        </p>
-      </section>
-
-      <section className="relative flex items-center justify-center overflow-hidden bg-transparent px-4 py-10 sm:px-8">
-        <div className="absolute inset-0 lg:hidden" aria-hidden>
-          <img src={buaCampus} alt="" className="h-full w-full object-cover object-center" />
-          <div className="absolute inset-0 bg-black/65" />
-        </div>
-        <div
-          role="group"
-          aria-label={t('مظهر الواجهة')}
-          className="segmented absolute end-4 top-4 z-10 inline-flex h-9 items-center rounded-xl border border-ink-200/80 bg-ink-50/70 p-[var(--seg-pad)] shadow-inner backdrop-blur"
-        >
-          <span
+        <div id="contact" className="relative mt-8 scroll-mt-24">
+          <svg
+            className="block h-9 w-full text-[#0e3873] dark:text-[#0a1b33]"
+            viewBox="0 0 1440 60"
+            preserveAspectRatio="none"
             aria-hidden
-            data-index={resolvedTheme === 'light' ? 0 : 1}
-            className="segmented-indicator pointer-events-none absolute bottom-1 top-1 rounded-lg bg-gradient-to-b from-primary to-brand-600 shadow-sm ring-1 ring-black/5"
-          />
-          {(
-            [
-              { key: 'light', icon: Sun, title: t('الوضع الفاتح') },
-              { key: 'dark', icon: Moon, title: t('الوضع الداكن') },
-            ] as const
-          ).map((option) => {
-            const active = resolvedTheme === option.key;
-            const Icon = option.icon;
-            return (
-              <button
-                key={option.key}
-                type="button"
-                onClick={() => setTheme(option.key)}
-                aria-pressed={active}
-                aria-label={option.title}
-                title={option.title}
-                className={[
-                  'segmented-item relative z-10 inline-flex h-7 items-center justify-center rounded-lg transition-colors',
-                  active ? 'text-on-primary' : 'text-ink-500 hover:text-ink-900',
-                ].join(' ')}
-              >
-                <Icon className="h-4 w-4" strokeWidth={1.9} aria-hidden />
-              </button>
-            );
-          })}
-        </div>
-        <div className="relative z-10 w-full max-w-md">
-          <div className="mb-7 flex flex-col items-start gap-2 lg:hidden">
-            <BuaLogo variant={resolvedTheme === 'dark' ? 'white' : 'navy'} globeClassName="h-11 w-11" wordmarkClassName="h-[40px] w-auto" />
-            <p className="text-[11px] font-semibold text-ink-500">
-              <TypewriterText text={t('المرشد الأكاديمي الذكي · جامعة بدر بأسيوط')} speed={18} active={firstVisit} />
-            </p>
-          </div>
-
-          <div className="relative overflow-hidden rounded-3xl border border-gold-500/60 bg-surface/5 shadow-float ring-1 ring-gold-400/25 backdrop-blur-xl dark:bg-surface/10">
-            <div className="p-6 sm:p-8">
-              <div className="mb-6">
-                <h2 className="bg-gradient-to-l from-brand-800 to-ink-950 bg-clip-text font-display text-2xl font-extrabold text-transparent dark:from-brand-300 dark:to-ink-950">
-                  <TypewriterText text={title} active={firstVisit} />
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-ink-500"><TypewriterText text={subtitle} speed={14} active={firstVisit} /></p>
+          >
+            <path
+              fill="currentColor"
+              d="M0,34 C180,4 360,58 540,42 C720,26 900,54 1080,40 C1260,26 1350,34 1440,18 L1440,60 L0,60 Z"
+            />
+          </svg>
+          <div className="bg-[#0e3873] px-5 pb-6 pt-2 text-white dark:bg-[#0a1b33] sm:px-10">
+            <div className="mx-auto flex max-w-[1440px] items-center gap-3">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/20">
+                <ShieldCheck className="h-6 w-6" />
+              </span>
+              <div>
+                <p className="text-sm font-bold">{t('كل قرار قابل للتتبع')}</p>
+                <p className="text-[11px] text-white/70">{t('موثوق · آمن · شفاف')}</p>
               </div>
-              {children}
             </div>
           </div>
-
-          {footer && <div className="mt-5 text-center text-sm text-ink-500">{footer}</div>}
-          <p className="mt-6 text-center text-[11px] leading-5 text-ink-400">
-            <Link to="/login" className="hover:text-ink-600">
-              <TypewriterText text={t('الوصول محمي · الجلسات تُدوّر تلقائيًا · كل العمليات الحساسة تُسجّل في سجل التدقيق')} speed={12} active={firstVisit} />
-            </Link>
-          </p>
-          <p className="mt-3 text-center text-[11px] leading-5 text-ink-400">
-            <TypewriterText text={`© ${new Date().getFullYear()} Aboelyazed Hatem Aboelyazed · ${t('جميع الحقوق محفوظة')}`} speed={16} active={firstVisit} />
-          </p>
         </div>
-      </section>
+      </main>
     </div>
   );
 }
