@@ -110,8 +110,8 @@ export default {
         sky: scale('sky', SKY),
       },
       fontFamily: {
-        sans: ['Tajawal', 'Cairo', 'Segoe UI', 'Tahoma', 'sans-serif'],
-        display: ['Cairo', 'Tajawal', 'Segoe UI', 'Tahoma', 'sans-serif'],
+        sans: ['Inter', 'Tajawal', 'Cairo', 'Segoe UI', 'Tahoma', 'sans-serif'],
+        display: ['Inter', 'Cairo', 'Tajawal', 'Segoe UI', 'Tahoma', 'sans-serif'],
       },
       boxShadow: {
         card: '0 1px 2px rgba(16, 24, 40, 0.06), 0 8px 24px -12px rgba(16, 24, 40, 0.18)',
