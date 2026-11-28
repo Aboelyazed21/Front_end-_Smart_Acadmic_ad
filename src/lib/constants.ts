@@ -108,7 +108,6 @@ export const NAV_GROUPS = {
     { to: '/student/what-if', label: 'تغيير التخصص', icon: 'GitCompareArrows' },
     { to: '/student/courses', label: 'سجلي الأكاديمي', icon: 'Library' },
     { to: '/student/advisor', label: 'مرشدي والساعات', icon: 'Contact' },
-    { to: '/student/chat', label: 'مساعد اللائحة', icon: 'BotMessageSquare' },
     { to: '/student/notifications', label: 'الإشعارات', icon: 'BellRing' },
   ],
   advisor: [
