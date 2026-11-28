@@ -52,6 +52,15 @@ import { AdminImportDetailPage } from './pages/admin/AdminImportDetailPage';
 
 import { SettingsPage } from './pages/SettingsPage';
 import { ForbiddenPage } from './pages/ForbiddenPage';
+
+import { DoctorDashboardPage } from './pages/doctor/DoctorDashboardPage';
+import { DoctorQuizzesPage } from './pages/doctor/DoctorQuizzesPage';
+import { DoctorQuizEditorPage } from './pages/doctor/DoctorQuizEditorPage';
+import { DoctorQuizAttemptsPage } from './pages/doctor/DoctorQuizAttemptsPage';
+import { DoctorProfilePage } from './pages/doctor/DoctorProfilePage';
+import { AdminDoctorsPage } from './pages/admin/AdminDoctorsPage';
+import { StudentQuizzesPage } from './pages/student/StudentQuizzesPage';
+import { StudentQuizTakePage } from './pages/student/StudentQuizTakePage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 function HomeRedirect() {
@@ -89,6 +98,8 @@ export default function App() {
 
           <Route element={<RequireRole roles={['student']} />}>
             <Route path="/student" element={<StudentDashboardPage />} />
+            <Route path="/student/quizzes" element={<StudentQuizzesPage />} />
+            <Route path="/student/quizzes/:id" element={<StudentQuizTakePage />} />
             <Route path="/student/eligibility" element={<EligibilityPage />} />
             <Route path="/student/plans" element={<PlansPage />} />
             <Route path="/student/plans/:id" element={<PlanDetailPage />} />
@@ -113,12 +124,22 @@ export default function App() {
             <Route path="/advisor/escalations" element={<AdvisorEscalationsPage />} />
           </Route>
 
+                    <Route element={<RequireRole roles={['doctor']} />}>
+            <Route path="/doctor" element={<DoctorDashboardPage />} />
+            <Route path="/doctor/quizzes" element={<DoctorQuizzesPage />} />
+            <Route path="/doctor/quizzes/new" element={<DoctorQuizEditorPage />} />
+            <Route path="/doctor/quizzes/:id/edit" element={<DoctorQuizEditorPage />} />
+            <Route path="/doctor/quizzes/:id/attempts" element={<DoctorQuizAttemptsPage />} />
+            <Route path="/doctor/profile" element={<DoctorProfilePage />} />
+          </Route>
+
           <Route element={<RequireRole roles={['admin']} />}>
             <Route path="/admin" element={<AdminOverviewPage />} />
             <Route path="/admin/users" element={<AdminUsersPage />} />
             <Route path="/admin/students" element={<AdminStudentsPage />} />
             <Route path="/admin/students/:id" element={<AdminStudentDetailPage />} />
             <Route path="/admin/advisors" element={<AdminAdvisorsPage />} />
+            <Route path="/admin/doctors" element={<AdminDoctorsPage />} />
             <Route path="/admin/notifications" element={<AdminNotificationsPage />} />
             <Route path="/admin/departments" element={<AdminDepartmentsPage />} />
             <Route path="/admin/courses" element={<AdminCoursesPage />} />

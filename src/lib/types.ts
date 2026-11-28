@@ -1,4 +1,4 @@
-export type Role = 'student' | 'advisor' | 'admin';
+export type Role = 'student' | 'advisor' | 'admin' | 'doctor';
 export type Program = 'CS' | 'IT' | 'AI' | 'DS';
 export type Season = 'fall' | 'spring' | 'summer';
 

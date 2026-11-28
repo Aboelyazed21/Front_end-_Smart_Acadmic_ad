@@ -11,6 +11,7 @@ export const ROLE_LABELS: Record<Role, string> = {
   student: 'طالب',
   advisor: 'مرشد أكاديمي',
   admin: 'مسؤول النظام',
+  doctor: 'دكتور',
 };
 
 export const DECISION_LABELS: Record<
@@ -97,6 +98,7 @@ export const GRADE_STATUS_LABELS: Record<string, string> = {
 export const NAV_GROUPS = {
   student: [
     { to: '/student', label: 'لوحة المتابعة', icon: 'PanelsTopLeft' },
+    { to: '/student/quizzes', label: 'الكويزات', icon: 'ClipboardCheck' },
     { to: '/student/eligibility', label: 'أهلية التسجيل', icon: 'BadgeCheck' },
     { to: '/student/plans', label: 'الخطط الدراسية', icon: 'ClipboardList' },
     { to: '/student/standing', label: 'الموقف الأكاديمي', icon: 'Activity' },
@@ -122,6 +124,7 @@ export const NAV_GROUPS = {
     { to: '/admin/users', label: 'المستخدمون', icon: 'UsersRound' },
     { to: '/admin/students', label: 'الطلاب', icon: 'GraduationCap' },
     { to: '/admin/advisors', label: 'المرشدون', icon: 'UserCog' },
+    { to: '/admin/doctors', label: 'الأطباء', icon: 'Stethoscope' },
     { to: '/admin/notifications', label: 'الإعلانات', icon: 'Megaphone' },
     { to: '/admin/departments', label: 'الأقسام', icon: 'Building2' },
     { to: '/admin/courses', label: 'المقررات', icon: 'Library' },
@@ -132,10 +135,16 @@ export const NAV_GROUPS = {
     { to: '/admin/analytics', label: 'التحليلات', icon: 'ChartColumn' },
     { to: '/admin/imports', label: 'استيراد البيانات', icon: 'FileUp' },
   ],
+  doctor: [
+    { to: '/doctor', label: 'لوحة الطبيب', icon: 'PanelsTopLeft' },
+    { to: '/doctor/quizzes', label: 'الكويزات', icon: 'ClipboardCheck' },
+    { to: '/doctor/profile', label: 'ملفي', icon: 'UserCog' },
+  ],
 } as const;
 
 export const HOME_BY_ROLE: Record<Role, string> = {
   student: '/student',
   advisor: '/advisor',
   admin: '/admin',
+  doctor: '/doctor',
 };

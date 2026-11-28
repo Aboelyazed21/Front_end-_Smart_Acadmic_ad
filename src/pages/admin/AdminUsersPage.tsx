@@ -31,7 +31,7 @@ import { PaginationBar } from '../../components/ui/PaginationBar';
 import { Table, TBody, Td, Th, THead, Tr } from '../../components/ui/Table';
 import { useToast } from '../../components/ui/Toast';
 
-type Role = 'student' | 'advisor' | 'admin';
+type Role = 'student' | 'advisor' | 'admin' | 'doctor';
 
 const STATUS_META: Record<string, { ar: string; tone: 'success' | 'neutral' | 'danger' }> = {
   active: { ar: 'نشط', tone: 'success' },
@@ -43,6 +43,7 @@ const AVATAR_TONES: Record<Role, string> = {
   admin: 'bg-gold-50 text-gold-800 ring-gold-200',
   advisor: 'bg-sky-50 text-sky-800 ring-sky-200',
   student: 'bg-brand-50 text-brand-800 ring-brand-200',
+  doctor: 'bg-emerald-50 text-emerald-800 ring-emerald-200',
 };
 
 const ROW_ACTION_TONES = {
